@@ -9,6 +9,9 @@ import AboutScreen from '../screen/AboutScreen'
 import TitleScreen from '../screen/TitleScreen'
 import PostScreen from '../screen/PostScreen'
 import ThemeScreen from '../screen/ThemeScreen'
+import LoadScreen from '../screen/LoadScreen'
+
+import { loadState, saveState } from '../lib/localStorage'
 
 
 class AppNavigator extends Component {
@@ -22,6 +25,7 @@ class AppNavigator extends Component {
       if (this.props.selectedScreen === 'PostScreen') { Scene = PostScreen }
       if (this.props.selectedScreen === 'AboutScreen') { Scene = AboutScreen }
       if (this.props.selectedScreen === 'ThemeScreen') { Scene = ThemeScreen }
+      if (this.props.selectedScreen === 'LoadScreen') { Scene = LoadScreen }
 
       return(
         <Scene {...this.props} />
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    theme: state.theme
+    theme: state.theme.attributes
   }
 }
 

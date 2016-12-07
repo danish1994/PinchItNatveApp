@@ -8,25 +8,37 @@ export const selectedScreen = createReducer('TitleScreen',{
 })
 
 export const theme = createReducer({
-  backgroundColor: '#111111',
-  color: '#bbbbbb'
+  key: 'dark',
+  attributes: {
+    backgroundColor: '#111111',
+    color: '#eeeeee'
+  }
 },{
   [types.THEME](state, action){
     switch (action.theme) {
       case 'light':
         return {
-          backgroundColor: '#eeeeee',
-          color: '#111111'
+          key: 'dark',
+          attributes: {
+            backgroundColor: '#eeeeee',
+            color: '#111111'
+          }
         }
       case 'dark':
         return {
-          backgroundColor: '#111111',
-          color: '#eeeeee'
+          key: 'dark',
+          attributes: {
+            backgroundColor: '#111111',
+            color: '#eeeeee'
+          }
         }
       default:
         return {
-          backgroundColor: '#111111',
-          color: '#eeeeee'
+          key: 'dark',
+          attributes: {
+            backgroundColor: '#111111',
+            color: '#eeeeee'
+          }
         }
     }
   }

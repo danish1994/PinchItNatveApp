@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-    theme: state.theme
+    theme: state.theme.attributes
   }
 }
 

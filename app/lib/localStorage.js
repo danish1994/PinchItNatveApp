@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native'
 export const loadState = () => {
   try {
     AsyncStorage.getItem('state').then((value)=>{
-      console.log('hello')
       console.log(value)
       if (value === null){
         return undefined
