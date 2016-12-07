@@ -1,3 +1,5 @@
+'use-strict'
+
 class Api {
   static headers() {
     return {

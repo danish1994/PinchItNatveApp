@@ -1,3 +1,5 @@
+'use-strict'
+
 import * as PostActions from './post'
 import * as HomeActions from './home'
 

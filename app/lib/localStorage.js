@@ -1,4 +1,7 @@
+'use-strict'
+
 import { AsyncStorage } from 'react-native'
+// import Realm from 'realm';
 
 export const loadState = () => {
   try {

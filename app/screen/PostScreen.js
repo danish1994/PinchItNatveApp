@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   post: {
     textAlign: 'left',
-    fontSize: windowHeight/30,
+    fontSize: windowHeight/35,
     alignSelf : 'stretch',
   },
   image: {
