@@ -2,14 +2,14 @@ import { AsyncStorage } from 'react-native'
 
 export const loadState = () => {
   try {
-    const serializedState = AsyncStorage.getItem('state',()=>{
-      console.log('loaded')
-    });
-    console.log(serializedState)
-    if (serializedState === null){
-      return undefined
-    }
-    return JSON.parse(serializedState)
+    AsyncStorage.getItem('state').then((value)=>{
+      console.log('hello')
+      console.log(value)
+      if (value === null){
+        return undefined
+      }
+      return JSON.parse(value)
+    })
   }catch(err){
     console.log(err)
     return undefined
