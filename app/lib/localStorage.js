@@ -7,16 +7,13 @@ export const loadState = (props) => {
   try {
     AsyncStorage.getItem('state').then((resp) => {
       resp = JSON.parse(resp)
-      console.log(resp)
-      props.setActiveScreen('TitleScreen')
       props.setTheme(resp.theme)
+
+      //Splash Screen Delay
+      setTimeout(function() {
+        props.setActiveScreen('TitleScreen')
+      },300)
     })
-    //
-    // if (serializedState === null){
-    //     console.log('undefined')
-    //     return undefined
-    // }
-    // return JSON.parse(serializedState)
   }catch(err){
     console.log(err)
     return undefined
