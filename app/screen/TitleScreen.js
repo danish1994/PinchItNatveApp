@@ -31,7 +31,7 @@ class TitleScreen extends Component {
             Test App
           </Text>
           <Button
-            onPress = {() => this.props.activeScreen('PostScreen')}
+            onPress = {() => this.props.setActiveScreen('PostScreen')}
             title = 'Explore'
             style = {styles.button}
           />

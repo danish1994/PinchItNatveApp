@@ -32,7 +32,7 @@ function configureStore(initialState) {
   return createStore(reducer, initialState, enhancer)
 }
 
-const store = configureStore(loadState());
+const store = configureStore({});
 
 store.subscribe(() => {
   saveState(store.getState())

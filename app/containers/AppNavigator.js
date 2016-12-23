@@ -21,11 +21,11 @@ class AppNavigator extends Component {
 
     render() {
       let Scene = null;
-      if (this.props.selectedScreen === 'TitleScreen') { Scene = TitleScreen }
-      if (this.props.selectedScreen === 'PostScreen') { Scene = PostScreen }
-      if (this.props.selectedScreen === 'AboutScreen') { Scene = AboutScreen }
-      if (this.props.selectedScreen === 'ThemeScreen') { Scene = ThemeScreen }
-      if (this.props.selectedScreen === 'LoadScreen') { Scene = LoadScreen }
+      if (this.props.activeScreen === 'TitleScreen') { Scene = TitleScreen }
+      if (this.props.activeScreen === 'PostScreen') { Scene = PostScreen }
+      if (this.props.activeScreen === 'AboutScreen') { Scene = AboutScreen }
+      if (this.props.activeScreen === 'ThemeScreen') { Scene = ThemeScreen }
+      if (this.props.activeScreen === 'LoadScreen') { Scene = LoadScreen }
 
       return(
         <Scene {...this.props} />

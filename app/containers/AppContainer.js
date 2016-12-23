@@ -4,7 +4,8 @@ import React, { Component } from 'react'
 import {
   DrawerLayoutAndroid,
   Button,
-  View
+  View,
+  ToolbarAndroid
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -56,7 +57,7 @@ class AppContainer extends Component {
     }
 
     _activeScreen(key){
-      this.props.activeScreen(key)
+      this.props.setActiveScreen(key)
       this.refs['drawer'].closeDrawer(0)
 
     }
@@ -64,7 +65,7 @@ class AppContainer extends Component {
 
 function mapStateToProps(state){
   return {
-    selectedScreen: state.selectedScreen,
+    activeScreen: state.activeScreen,
     drawerTheme: state.drawerTheme
   }
 }

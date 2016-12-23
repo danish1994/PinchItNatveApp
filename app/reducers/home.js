@@ -3,7 +3,7 @@
 import createReducer from '../lib/createReducer'
 import * as types from '../actions/types'
 
-export const selectedScreen = createReducer('TitleScreen',{
+export const activeScreen = createReducer('LoadScreen',{
   [types.ACTIVE_SCREEN](state, action){
     return action.key
   }
@@ -20,7 +20,7 @@ export const theme = createReducer({
     switch (action.theme) {
       case 'light':
         return {
-          key: 'dark',
+          key: 'light',
           attributes: {
             backgroundColor: '#eeeeee',
             color: '#111111'
@@ -46,7 +46,7 @@ export const theme = createReducer({
   }
 })
 
-export const drawerTheme = createReducer('rgba(0,0,0,0.3)',{
+export const drawerTheme = createReducer('rgba(0,0,0,0.5)',{
   [types.THEME](state, action){
     switch (action.theme) {
       case 'light':
@@ -56,5 +56,11 @@ export const drawerTheme = createReducer('rgba(0,0,0,0.3)',{
       default:
         return 'rgba(0,0,0,0.5)'
     }
+  }
+})
+
+export const startScreen = createReducer(true, {
+  [types.START_SCREEN](state, action){
+    return false
   }
 })

@@ -10,9 +10,11 @@ import {
   AsyncStorage
 } from 'react-native'
 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
+
+import { loadState } from '../lib/localStorage'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -23,6 +25,9 @@ class LoadScreen extends Component {
   }
 
   render() {
+
+    loadState(this.props)
+
     return (
       <ViewContainer>
         <View style={styles.container}>
