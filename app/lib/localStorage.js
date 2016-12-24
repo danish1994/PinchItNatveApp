@@ -6,17 +6,25 @@ import { AsyncStorage } from 'react-native'
 export const loadState = (props) => {
   try {
     AsyncStorage.getItem('state').then((resp) => {
-      resp = JSON.parse(resp)
-      props.setTheme(resp.theme)
+      if(resp) {
+        resp = JSON.parse(resp)
+        props.setTheme(resp.theme)
 
-      //Splash Screen Delay
-      setTimeout(function() {
-        props.setActiveScreen('TitleScreen')
-      },300)
+        //Splash Screen Delay
+        setTimeout(function() {
+          props.setActiveScreen('TitleScreen')
+        },1)
+      } else {
+        //Splash Screen Delay
+        setTimeout(function() {
+          props.setActiveScreen('TitleScreen')
+        },1)
+      }
+    }).catch((err) => {
+      console.log(err)
     })
   }catch(err){
     console.log(err)
-    return undefined
   }
 }
 
