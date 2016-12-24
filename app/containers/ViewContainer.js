@@ -3,7 +3,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  StatusBar
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -12,7 +13,11 @@ class ViewContainer extends Component {
   render() {
     return (
       <View style={[styles.ViewContainer, {backgroundColor: this.props.theme.backgroundColor}]}>
-        {this.props.children}
+          <StatusBar
+             backgroundColor = 'blue'
+             barStyle = 'light-content'
+             hidden = { true } />
+          {this.props.children}
       </View>
     )
   }

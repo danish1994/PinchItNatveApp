@@ -6,8 +6,7 @@ import {
   Dimensions,
   StyleSheet,
   Text,
-  View,
-  AsyncStorage
+  View
 } from 'react-native'
 
 import { connect } from 'react-redux'
