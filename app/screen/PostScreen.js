@@ -12,7 +12,8 @@ import {
   View,
   TouchableHighlight,
   Image,
-  Button
+  Button,
+  ToastAndroid
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -40,21 +41,21 @@ class PostScreen extends Component {
         </View>
         <View style = {{flex: 1 , alignItems: 'stretch'}}>
           <View style = {{flex: 1 , alignItems: 'stretch'}}>
-            <Text style={[styles.heading, this.props.theme]}>Title</Text>
+            <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
           </View>
           <View style = {{flex: 4 , alignItems: 'stretch'}}>
-            <Text style={[styles.post, this.props.theme]}>Aliquam convallis, ligula nec molestie interdum, tellus enim commodo mauris, sed bibendum ex elit a felis. Sed fringilla iaculis varius. Etiam arcu nibh, consequat at mattis eget, rutrum non elit. Nam at euismod turpis, mattis auctor nisi. Nam nec molestie ex. Sed eget dolor a ipsum egestas venenatis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis auctor magna lacus.</Text>
+            <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>
           </View>
           <View style = {{flex: 1 , alignItems: 'stretch'}}>
             <View style={{flexDirection : 'row', justifyContent: 'space-between',flex: 1}}>
               <Button
-                onPress = {() => this.props.activeScreen('PostScreen')}
+                onPress = {() => this._previousPost()}
                 title = ' < '
                 style = {styles.button}
               />
               <View style={{flex:2}} />
               <Button
-                onPress = {() => this.props.activeScreen('PostScreen')}
+                onPress = {() => this._nextPost()}
                 title = ' > '
                 style = {styles.button}
               />
@@ -66,11 +67,21 @@ class PostScreen extends Component {
   }
 
   _previousPost() {
-
+    if(this.props.currentPost > 0)
+      this.props.getPrevPost()
+    else{
+      ToastAndroid.show('No More Post Available ', ToastAndroid.LONG)
+    }
   }
 
   _nextPost() {
-
+    console.log(this.props.currentPost)
+    console.log(this.props.postsLength)
+    if(this.props.currentPost < this.props.postsLength)
+      this.props.getNextPost()
+    else{
+      ToastAndroid.show('No More Post Available ', ToastAndroid.LONG)
+    }
   }
 }
 
@@ -95,7 +106,7 @@ const styles = StyleSheet.create({
   },
   post: {
     textAlign: 'left',
-    fontSize: windowHeight/35,
+    fontSize: windowHeight/40,
     alignSelf : 'stretch',
   },
   image: {
@@ -106,7 +117,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   return {
-      theme: state.theme.attributes
+      theme: state.theme.attributes,
+      post: state.posts[state.currentPost],
+      postsLength: state.posts.length,
+      currentPost: state.currentPost
   }
 }
 
