@@ -75,9 +75,7 @@ class PostScreen extends Component {
   }
 
   _nextPost() {
-    console.log(this.props.currentPost)
-    console.log(this.props.postsLength)
-    if(this.props.currentPost < this.props.postsLength)
+    if(this.props.currentPost < (this.props.postsLength - 1))
       this.props.getNextPost()
     else{
       ToastAndroid.show('No More Post Available ', ToastAndroid.LONG)

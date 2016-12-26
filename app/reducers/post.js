@@ -42,7 +42,6 @@ export const currentPost = createReducer(0,{
     return state + 1
   },
   [types.GET_PREV_POST](state, action){
-    console.log(state)
     return state - 1
   }
 })

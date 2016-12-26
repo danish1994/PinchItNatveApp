@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   text: {
-    fontSize: windowHeight/30,
+    fontSize: windowHeight/35,
     margin: 20,
     textAlign: 'justify'
   }

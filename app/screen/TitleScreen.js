@@ -35,11 +35,6 @@ class TitleScreen extends Component {
             title = 'Explore'
             style = {styles.button}
           />
-          <Button
-            onPress = {() => this.props.loadPosts()}
-            title = 'Load Posts'
-            style = {styles.button}
-          />
         </View>
       </ViewContainer>
     )

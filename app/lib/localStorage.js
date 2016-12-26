@@ -8,17 +8,16 @@ export const loadState = (props) => {
     AsyncStorage.getItem('state').then((resp) => {
       if(resp) {
         resp = JSON.parse(resp)
-        props.setTheme(resp.theme)
-
         //Splash Screen Delay
         setTimeout(function() {
           props.setActiveScreen('TitleScreen')
-        },1)
+          props.setTheme(resp.theme)
+        },10)
       } else {
         //Splash Screen Delay
         setTimeout(function() {
           props.setActiveScreen('TitleScreen')
-        },1)
+        },10)
       }
     }).catch((err) => {
       console.log(err)
@@ -32,12 +31,13 @@ export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify({
       theme: state.theme.key,
-      activeScreen: state.activeScreen
+      posts: state.posts
     })
 
     AsyncStorage.setItem('state', serializedState).then(()=>{
       console.log('State Saved')
     })
+
   }catch(err){
     console.log(err)
   }
