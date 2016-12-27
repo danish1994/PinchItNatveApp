@@ -30,6 +30,7 @@ class Api {
     let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
     options.headers = Api.headers()
     return fetch(url, options).then( resp => {
+      console.log(resp)
       let json = resp.json();
       if (resp.ok) {
         return json

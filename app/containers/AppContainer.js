@@ -22,26 +22,29 @@ class AppContainer extends Component {
 
     render() {
       var _renderDrawer = (
-        <View>
-          <Button
-            onPress = {() => this._activeScreen('TitleScreen')}
-            title = 'Home'
-          />
-          <Button
-            onPress = {() => this._activeScreen('PostScreen')}
-            title = 'Posts'
-          />
-          <Button
-            onPress = {() => this._activeScreen('AboutScreen')}
-            title = 'About Us'
-          />
-          <Button
-            onPress = {() => this._activeScreen('ThemeScreen')}
-            title = 'Themes'
-          />
+        <View style={{flex: 1}}>
+          <View style={{flex: 2}}>
+          </View>
+          <View style={{flex: 5}}>
+            <Button
+              onPress = {() => this._activeScreen('TitleScreen')}
+              title = 'Home'
+            />
+            <Button
+              onPress = {() => this._activeScreen('PostScreen')}
+              title = 'Posts'
+            />
+            <Button
+              onPress = {() => this._activeScreen('AboutScreen')}
+              title = 'About Us'
+            />
+            <Button
+              onPress = {() => this._activeScreen('ThemeScreen')}
+              title = 'Themes'
+            />
+          </View>
         </View>
       )
-
 
       return(
         <DrawerLayoutAndroid

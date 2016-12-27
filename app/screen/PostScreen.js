@@ -53,7 +53,13 @@ class PostScreen extends Component {
                 title = ' < '
                 style = {styles.button}
               />
-              <View style={{flex:2}} />
+              <View style={{flex: 1}} />
+              <Button
+                onPress = {() => this._refresh()}
+                title = 'Refresh'
+                style = {styles.button}
+              />
+              <View style={{flex: 1}} />
               <Button
                 onPress = {() => this._nextPost()}
                 title = ' > '
@@ -64,6 +70,10 @@ class PostScreen extends Component {
         </View>
       </ViewContainer>
     )
+  }
+
+  _refresh(){
+    this.props.loadPosts()
   }
 
   _previousPost() {
