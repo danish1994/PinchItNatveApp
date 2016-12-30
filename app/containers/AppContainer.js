@@ -5,6 +5,7 @@ import {
   DrawerLayoutAndroid,
   Button,
   View,
+  Text,
   ToolbarAndroid
 } from 'react-native'
 
@@ -23,7 +24,13 @@ class AppContainer extends Component {
     render() {
       var _renderDrawer = (
         <View style={{flex: 1}}>
-          <View style={{flex: 2}}>
+          <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            <View style={{flex: 1}}>
+
+            </View>
+            <View style={{flex: 2}}>
+              <Text>Hi! User.</Text>
+            </View>
           </View>
           <View style={{flex: 5}}>
             <Button
@@ -56,13 +63,12 @@ class AppContainer extends Component {
           <AppNavigator
             { ...this.props } />
         </DrawerLayoutAndroid>
-        )
+      )
     }
 
     _activeScreen(key){
       this.props.setActiveScreen(key)
       this.refs['drawer'].closeDrawer(0)
-
     }
 }
 

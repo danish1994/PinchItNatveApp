@@ -46,15 +46,15 @@ export const theme = createReducer({
   }
 })
 
-export const drawerTheme = createReducer('rgba(0,0,0,0.5)',{
+export const drawerTheme = createReducer('rgba(0,0,0,0.8)',{
   [types.THEME](state, action){
     switch (action.theme) {
       case 'light':
-        return 'rgba(255,255,255,0.5)'
+        return 'rgba(255,255,255,0.8)'
       case 'dark':
-        return 'rgba(0,0,0,0.5)'
+        return 'rgba(0,0,0,0.8)'
       default:
-        return 'rgba(0,0,0,0.5)'
+        return 'rgba(0,0,0,0.8)'
     }
   }
 })
