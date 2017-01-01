@@ -26,17 +26,18 @@ class Api {
   }
 
   static xhr(route, params, verb) {
-    const url = `${route}`
+    const url =`https://salty-cove-91712.herokuapp.com`+`${route}`
+    console.log(url)
     let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
     options.headers = Api.headers()
-    return fetch(url, options).then( resp => {
-      console.log(resp)
-      let json = resp.json();
-      if (resp.ok) {
-        return json
-      }
-      return json.then(err => {throw err});
-    }).then( json => json.results );
+    return fetch(url, options)
+    .then((resp) => resp.json())
+    .then( resp => {
+      return resp
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 }
 export default Api

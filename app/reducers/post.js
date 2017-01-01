@@ -31,9 +31,12 @@ export const posts = createReducer([
   }
 ],{
   [types.LOAD_POST](state, action){
-    return {
-
-    }
+    // let newState = {}
+    // action.posts.forEach((post) => {
+    //   newState[post.postid] = post
+    // })
+    // return newState
+    return action.posts
   }
 })
 
@@ -43,5 +46,8 @@ export const currentPost = createReducer(0,{
   },
   [types.GET_PREV_POST](state, action){
     return state - 1
+  },
+  [types.LOAD_POST](state, action){
+    return 0
   }
 })

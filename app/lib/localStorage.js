@@ -35,7 +35,7 @@ export const saveState = (state) => {
     })
 
     AsyncStorage.setItem('state', serializedState).then(()=>{
-      console.log('State Saved')
+      // console.log('State Saved')
     })
 
   }catch(err){

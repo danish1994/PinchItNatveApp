@@ -10,6 +10,7 @@ import TitleScreen from '../screen/TitleScreen'
 import PostScreen from '../screen/PostScreen'
 import ThemeScreen from '../screen/ThemeScreen'
 import LoadScreen from '../screen/LoadScreen'
+import UserScreen from '../screen/UserScreen'
 
 import { loadState, saveState } from '../lib/localStorage'
 
@@ -26,6 +27,7 @@ class AppNavigator extends Component {
       if (this.props.activeScreen === 'AboutScreen') { Scene = AboutScreen }
       if (this.props.activeScreen === 'ThemeScreen') { Scene = ThemeScreen }
       if (this.props.activeScreen === 'LoadScreen') { Scene = LoadScreen }
+      if (this.props.activeScreen === 'UserScreen') { Scene = UserScreen }
 
       return(
         <Scene {...this.props} />

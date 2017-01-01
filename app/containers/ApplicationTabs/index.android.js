@@ -28,7 +28,6 @@ class ApplicationTabs extends Component {
     }
 
     render() {
-      console.log(this.props.theme)
       var _renderDrawer = (
         <View style={styles.container}>
           <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
