@@ -31,7 +31,6 @@ class PostScreen extends Component {
   }
 
   render() {
-    console.log(this.props.post)
     return (
       <ViewContainer>
         <View style = {styles.container}>
@@ -42,7 +41,7 @@ class PostScreen extends Component {
         </View>
         <View style = {{flex: 1 , alignItems: 'stretch'}}>
           <View style = {{flex: 1 , alignItems: 'stretch'}}>
-            <Text style={[styles.heading, this.props.theme]}>Post Title</Text>
+            <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
           </View>
           <View style = {{flex: 4 , alignItems: 'stretch'}}>
             <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>

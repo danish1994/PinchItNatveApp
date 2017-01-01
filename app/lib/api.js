@@ -4,7 +4,7 @@ class Api {
   static headers() {
     return {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
       'dataType': 'json',
     }
   }
@@ -31,8 +31,12 @@ class Api {
     let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
     options.headers = Api.headers()
     return fetch(url, options)
-    .then((resp) => resp.json())
-    .then( resp => {
+    .then((resp) => {
+      if(resp.ok)
+        return resp.json()
+      else
+        console.log('error')
+    }).then((resp) => {
       return resp
     })
     .catch((error) => {

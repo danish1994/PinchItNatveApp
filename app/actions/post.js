@@ -9,7 +9,6 @@ export function loadPosts(){
       `type=male`
     ].join('&')
     return Api.get(`/post/`).then(resp => {
-      console.log(resp)
       dispatch(setPosts({ posts: resp }))
     }).catch((err) => {
       console.log(err)

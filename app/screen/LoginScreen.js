@@ -18,7 +18,7 @@ import ViewContainer from '../containers/ViewContainer'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-class UserScreen extends Component {
+class LoginScreen extends Component {
   constructor(props) {
     super(props)
   }
@@ -28,7 +28,7 @@ class UserScreen extends Component {
       <ViewContainer>
         <View style={styles.container}>
           <Text style={[styles.heading, this.props.theme]}>
-            Hi. User
+            Login
           </Text>
         </View>
       </ViewContainer>
@@ -60,4 +60,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(UserScreen)
+export default connect(mapStateToProps)(LoginScreen)

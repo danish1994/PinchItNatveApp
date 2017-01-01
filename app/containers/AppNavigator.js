@@ -11,6 +11,8 @@ import PostScreen from '../screen/PostScreen'
 import ThemeScreen from '../screen/ThemeScreen'
 import LoadScreen from '../screen/LoadScreen'
 import UserScreen from '../screen/UserScreen'
+import LoginScreen from '../screen/LoginScreen'
+import RegisterScreen from '../screen/RegisterScreen'
 
 import { loadState, saveState } from '../lib/localStorage'
 
@@ -28,6 +30,8 @@ class AppNavigator extends Component {
       if (this.props.activeScreen === 'ThemeScreen') { Scene = ThemeScreen }
       if (this.props.activeScreen === 'LoadScreen') { Scene = LoadScreen }
       if (this.props.activeScreen === 'UserScreen') { Scene = UserScreen }
+      if (this.props.activeScreen === 'RegisterScreen') { Scene = RegisterScreen }
+      if (this.props.activeScreen === 'LoginScreen') { Scene = LoginScreen }
 
       return(
         <Scene {...this.props} />

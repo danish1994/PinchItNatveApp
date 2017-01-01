@@ -9,7 +9,8 @@ import {
   ToolbarAndroid,
   StyleSheet,
   Dimensions,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -30,17 +31,19 @@ class ApplicationTabs extends Component {
     render() {
       var _renderDrawer = (
         <View style={styles.container}>
-          <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            <View style={{flex: 0.2}} />
-            <View style={{flex: 1}}>
-              <Image
-                style={{width: 100, height: 100, borderRadius: 50}}
-                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+          <TouchableOpacity onPress = {() => this._user()} style={{flex: 2}}>
+            <View style={{flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <View style={{flex: 0.2}} />
+              <View style={{flex: 1}}>
+                <Image
+                  style={{width: 100, height: 100, borderRadius: 50}}
+                  source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+              </View>
+              <View style={{flex: 2}}>
+                <Text style={[styles.heading, {color: this.props.theme.color}]}>Hi! User.</Text>
+              </View>
             </View>
-            <View style={{flex: 2}}>
-              <Text style={[styles.heading, {color: this.props.theme.color}]}>Hi! User.</Text>
-            </View>
-          </View>
+          </TouchableOpacity>
           <View style={{flex: 5}}>
             <Button
               onPress = {() => this._activeScreen('TitleScreen')}
@@ -75,6 +78,13 @@ class ApplicationTabs extends Component {
       )
     }
 
+    _user(){
+      if(this.props.loggedIn.status)
+        this._activeScreen('UserScreen')
+      else
+        this._activeScreen('LoginScreen')
+    }
+
     _activeScreen(key){
       this.props.setActiveScreen(key)
       this.refs['drawer'].closeDrawer(0)
@@ -103,6 +113,7 @@ function mapStateToProps(state){
     activeScreen: state.activeScreen,
     drawerTheme: state.drawerTheme,
     theme: state.theme.attributes,
+    loggedIn: state.loggedIn
   }
 }
 
