@@ -128,51 +128,72 @@ class RegisterScreen extends Component {
     )
   }
 
+  _showMessage(msg){
+    ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+  }
+
   _signUp(){
-    if(!this.validateEmail(this.state.email)){
-      ToastAndroid.show('Invalid Email. Please enter a valid Email.', ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(!this._validateEmail(this.state.email)){
+      this._showMessage('Invalid Email. Please enter a valid Email.')
     }else{
-      ToastAndroid.show('Registering Please Wait', ToastAndroid.SHORT, ToastAndroid.CENTER)
-      var user = this.state
-      var params = Object.keys(user).map(function(key){
-        return encodeURIComponent(key) + '=' + encodeURIComponent(user[key])
-      }).join('&')
-      return Api.post(`/user/`,params).then(resp => {
-        if(resp.status === 0){
-          ToastAndroid.show('Successfully Registered. Loggin you in.', ToastAndroid.SHORT, ToastAndroid.CENTER)
-          return Api.post(`/user/login/`,params).then(resp => {
-            if(resp.status === 0){
-              console.log(resp)
-              var token = resp.message.token
-              console.log(token)
-              return Api.get(`/user/`+token).then(resp => {
-                console.log(resp)
-                var newState = {
-                  status: true,
-                  token: token,
-                  user: resp
-                }
-                console.log(newState)
-                this.props.setUser(newState)
-              }).catch((err) => {
-                console.log(err)
-              })
-            }else{
-              ToastAndroid.show(resp.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
-            }
-          }).catch((err) => {
-            console.log(err)
-          })
-        }else{
-          ToastAndroid.show(resp.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
-        }
-      }).catch((err) => {
-        console.log(err)
-      })
+      this._register()
     }
   }
 
-  validateEmail = (email) => {
+  _getParams(user){
+    var params = Object.keys(user).map(function(key){
+      return encodeURIComponent(key) + '=' + encodeURIComponent(user[key])
+    }).join('&')
+    return params
+  }
+
+  _register(){
+    this._showMessage('Registering Please Wait')
+    var params = this._getParams(this.state)
+    return Api.post(`/user/`,params).then(resp => {
+      if(resp.status === 0){
+        this._login(params)
+      }else{
+        this._showMessage(resp.message)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  _login(params){
+    this._showMessage('Successfully Registered. Loggin you in.')
+    return Api.post(`/user/login/`,params).then(resp => {
+      if(resp.status === 0){
+        var token = resp.message.token
+        this._getUser(token)
+      }else{
+        this._showMessage(resp.message)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  _getUser(token){
+    this._showMessage('Fetching your data.')
+    return Api.get(`/user/`+token).then(resp => {
+      this._setUser(token, resp)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  _setUser(token, user){
+    var newState = {
+      status: true,
+      token: token,
+      user: user
+    }
+    this.props.setUser(newState)
+  }
+
+  _validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
   }

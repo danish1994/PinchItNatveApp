@@ -10,7 +10,6 @@ export function logout(){
 }
 
 export function setUser(user){
-  console.log(user)
   return {
     type: types.LOGIN,
     user
