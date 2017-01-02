@@ -22,8 +22,7 @@ import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
 
 class PostScreen extends Component {
   constructor(props){
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     textAlign: 'left',
-    fontSize: windowHeight/20
+    fontSize: height/20
   },
   button: {
     flex: 2,
@@ -110,11 +109,11 @@ const styles = StyleSheet.create({
   },
   buttonText:{
     textAlign: 'center',
-    fontSize: windowHeight/30
+    fontSize: height/30
   },
   post: {
     textAlign: 'left',
-    fontSize: windowHeight/40,
+    fontSize: height/40,
     alignSelf : 'stretch',
   },
   image: {

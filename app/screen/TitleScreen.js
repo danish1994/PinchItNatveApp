@@ -15,8 +15,7 @@ import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
 
 class TitleScreen extends Component {
   constructor(props) {
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   welcome: {
-    fontSize: windowHeight/15,
+    fontSize: height/15,
     textAlign: 'center',
     margin: 10,
     height: 70

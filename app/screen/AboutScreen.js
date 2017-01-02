@@ -15,8 +15,7 @@ import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
 
 class AboutScreen extends Component {
   constructor(props) {
@@ -45,12 +44,12 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   heading: {
-    fontSize: windowHeight/20,
+    fontSize: height/20,
     textAlign: 'center',
     margin: 10
   },
   text: {
-    fontSize: windowHeight/35,
+    fontSize: height/35,
     margin: 20,
     textAlign: 'justify'
   }

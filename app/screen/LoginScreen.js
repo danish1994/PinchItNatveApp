@@ -15,17 +15,14 @@ import {
 
 import {connect} from 'react-redux'
 
-import ViewContainer from '../../containers/ViewContainer'
+import ViewContainer from '../containers/ViewContainer'
 
 const { width, height } = Dimensions.get('window')
 
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
-
-const background = require('./bg.png')
-const mark = require('./mark.png')
-const lockIcon = require('./lock.png')
-const personIcon = require('./person.png')
+const background = require('../images/bg.png')
+const mark = require('../images/mark.png')
+const lockIcon = require('../images/lock.png')
+const personIcon = require('../images/person.png')
 
 class LoginScreen extends Component {
   constructor(props) {
