@@ -58,9 +58,3 @@ export const drawerTheme = createReducer('rgba(0,0,0,0.8)',{
     }
   }
 })
-
-export const startScreen = createReducer(true, {
-  [types.START_SCREEN](state, action){
-    return false
-  }
-})

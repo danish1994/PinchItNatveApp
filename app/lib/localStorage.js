@@ -8,17 +8,18 @@ export const loadState = (props) => {
     AsyncStorage.getItem('state').then((resp) => {
       if(resp) {
         resp = JSON.parse(resp)
+
         //Splash Screen Delay
         setTimeout(function() {
-          props.setActiveScreen('TitleScreen')
           props.setPosts({posts: resp.posts})
+          props.setActiveScreen('TitleScreen')
           props.setTheme(resp.theme)
         },100)
       } else {
         //Splash Screen Delay
         setTimeout(function() {
-          props.setActiveScreen('TitleScreen')
-        },10)
+          props.setActiveScreen('TutorialScreen')
+        },100)
       }
     }).catch((err) => {
       console.log(err)

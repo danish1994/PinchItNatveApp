@@ -15,9 +15,3 @@ export function setTheme(theme){
     theme: theme
   }
 }
-
-export function setStartScreen(){
-  return {
-    types: types.START_SCREEN
-  }
-}
