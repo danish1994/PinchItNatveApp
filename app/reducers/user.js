@@ -7,13 +7,7 @@ export const loggedIn = createReducer({
   status: false
 },{
   [types.LOGIN](state, action){
-    return {
-      status: true,
-      user: {
-        name: 'name',
-        emailid: 'abc@abc'
-      }
-    }
+    return action.user
   }
 },
 {

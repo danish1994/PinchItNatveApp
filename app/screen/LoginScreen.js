@@ -46,6 +46,8 @@ class LoginScreen extends Component {
                   placeholder='Username'
                   placeholderTextColor='#FFF'
                   style={styles.input}
+                  underlineColorAndroid='transparent'
+                  returnKeyType='next'
                 />
               </View>
               <View style={styles.inputWrap}>
@@ -56,7 +58,9 @@ class LoginScreen extends Component {
                   placeholderTextColor='#FFF'
                   placeholder='Password'
                   style={styles.input}
-                  secureTextEntry
+                  underlineColorAndroid='transparent'
+                  returnKeyType='go'
+                  secureTextEntry={true}                  
                 />
               </View>
               <TouchableOpacity activeOpacity={.5}>

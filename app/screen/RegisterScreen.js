@@ -10,10 +10,13 @@ import {
   TouchableOpacity,
   Button,
   TextInput,
-  Image
+  Image,
+  ToastAndroid,
 } from 'react-native'
 
 import {connect} from 'react-redux'
+
+import Api from '../lib/api'
 
 import ViewContainer from '../containers/ViewContainer'
 
@@ -27,6 +30,11 @@ const emailIcon = require('../images/email.png')
 class RegisterScreen extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      name: '',
+      email: '',
+      pswd: ''
+    }
   }
 
   render() {
@@ -56,6 +64,9 @@ class RegisterScreen extends Component {
                   placeholder='Name'
                   placeholderTextColor='#FFF'
                   underlineColorAndroid='transparent'
+                  returnKeyType='next'
+                  onChangeText={ (name) => this.setState({name}) }
+                  value={this.state.name}
                 />
               </View>
 
@@ -71,6 +82,11 @@ class RegisterScreen extends Component {
                   style={[styles.input, styles.whiteFont]}
                   placeholder='Email'
                   placeholderTextColor='#FFF'
+                  keyboardType='email-address'
+                  underlineColorAndroid='transparent'
+                  returnKeyType='next'
+                  onChangeText={ (email) => this.setState({email}) }
+                  value={this.state.email}
                 />
               </View>
 
@@ -87,11 +103,15 @@ class RegisterScreen extends Component {
                   style={[styles.input, styles.whiteFont]}
                   placeholder='Password'
                   placeholderTextColor='#FFF'
+                  underlineColorAndroid='transparent'
+                  returnKeyType='go'
+                  onChangeText={ (pswd) => this.setState({pswd}) }
+                  value={this.state.pswd}
                 />
               </View>
             </View>
             <View style={styles.footerContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress = { () => this._signUp() }>
                 <View style={styles.signup}>
                   <Text style={styles.whiteFont}>Join</Text>
                 </View>
@@ -106,6 +126,55 @@ class RegisterScreen extends Component {
         </View>
       </ViewContainer>
     )
+  }
+
+  _signUp(){
+    if(!this.validateEmail(this.state.email)){
+      ToastAndroid.show('Invalid Email. Please enter a valid Email.', ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      ToastAndroid.show('Registering Please Wait', ToastAndroid.SHORT, ToastAndroid.CENTER)
+      var user = this.state
+      var params = Object.keys(user).map(function(key){
+        return encodeURIComponent(key) + '=' + encodeURIComponent(user[key])
+      }).join('&')
+      return Api.post(`/user/`,params).then(resp => {
+        if(resp.status === 0){
+          ToastAndroid.show('Successfully Registered. Loggin you in.', ToastAndroid.SHORT, ToastAndroid.CENTER)
+          return Api.post(`/user/login/`,params).then(resp => {
+            if(resp.status === 0){
+              console.log(resp)
+              var token = resp.message.token
+              console.log(token)
+              return Api.get(`/user/`+token).then(resp => {
+                console.log(resp)
+                var newState = {
+                  status: true,
+                  token: token,
+                  user: resp
+                }
+                console.log(newState)
+                this.props.setUser(newState)
+              }).catch((err) => {
+                console.log(err)
+              })
+            }else{
+              ToastAndroid.show(resp.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+            }
+          }).catch((err) => {
+            console.log(err)
+          })
+        }else{
+          ToastAndroid.show(resp.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+
+  validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
   }
 
   _signIn(){
