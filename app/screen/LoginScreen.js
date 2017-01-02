@@ -10,10 +10,13 @@ import {
   TouchableOpacity,
   Button,
   TextInput,
-  Image
+  Image,
+  ToastAndroid
 } from 'react-native'
 
 import {connect} from 'react-redux'
+
+import Api from '../lib/api'
 
 import ViewContainer from '../containers/ViewContainer'
 
@@ -27,6 +30,10 @@ const personIcon = require('../images/person.png')
 class LoginScreen extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      email: '',
+      pswd: ''
+    }
   }
 
   render() {
@@ -43,11 +50,14 @@ class LoginScreen extends Component {
                   <Image source={personIcon} style={styles.icon} resizeMode='contain' />
                 </View>
                 <TextInput
-                  placeholder='Username'
+                  placeholder='Email'
                   placeholderTextColor='#FFF'
-                  style={styles.input}
+                  style={[styles.input, styles.whiteFont]}
                   underlineColorAndroid='transparent'
                   returnKeyType='next'
+                  keyboardType='email-address'
+                  onChangeText={ (email) => this.setState({email}) }
+                  value={this.state.email}
                 />
               </View>
               <View style={styles.inputWrap}>
@@ -57,10 +67,12 @@ class LoginScreen extends Component {
                 <TextInput
                   placeholderTextColor='#FFF'
                   placeholder='Password'
-                  style={styles.input}
+                  style={[styles.input, styles.whiteFont]}
                   underlineColorAndroid='transparent'
+                  secureTextEntry={true}
                   returnKeyType='go'
-                  secureTextEntry={true}                  
+                  onChangeText={ (pswd) => this.setState({pswd}) }
+                  value={this.state.pswd}
                 />
               </View>
               <TouchableOpacity activeOpacity={.5}>
@@ -68,7 +80,7 @@ class LoginScreen extends Component {
                   <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={.5}>
+              <TouchableOpacity activeOpacity={.5} onPress = { () => this._signIn() }>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>Sign In</Text>
                 </View>
@@ -88,6 +100,63 @@ class LoginScreen extends Component {
         </View>
       </ViewContainer>
     )
+  }
+
+  _showMessage(msg){
+    ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+  }
+
+  _signIn(){
+    if(!this._validateEmail(this.state.email)){
+      this._showMessage('Invalid Email. Please enter a valid Email.')
+    }else{
+      this._login(this._getParams(this.state))
+    }
+  }
+
+  _getParams(user){
+    var params = Object.keys(user).map(function(key){
+      return encodeURIComponent(key) + '=' + encodeURIComponent(user[key])
+    }).join('&')
+    return params
+  }
+
+  _login(params){
+    this._showMessage('Loggin you in.')
+    console.log(params)
+    return Api.post(`/user/login/`,params).then(resp => {
+      if(resp.status === 0){
+        var token = resp.message.token
+        this._getUser(token)
+      }else{
+        this._showMessage(resp.message)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  _getUser(token){
+    this._showMessage('Fetching your data.')
+    return Api.get(`/user/`+token).then(resp => {
+      this._setUser(token, resp)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+  _setUser(token, user){
+    var newState = {
+      status: true,
+      token: token,
+      user: user
+    }
+    this.props.setUser(newState)
+  }
+
+  _validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
   }
 
   _signUp(){
@@ -164,6 +233,9 @@ const styles = StyleSheet.create({
   signupLinkText: {
     color: '#FFF',
     marginLeft: 5,
+  },
+  whiteFont: {
+    color: '#FFF'
   }
 })
 
