@@ -129,7 +129,7 @@ class RegisterScreen extends Component {
   }
 
   _showMessage(msg){
-    ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+    ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   _signUp(){

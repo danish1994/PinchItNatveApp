@@ -103,7 +103,7 @@ class LoginScreen extends Component {
   }
 
   _showMessage(msg){
-    ToastAndroid.show(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
+    ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   _signIn(){
@@ -123,7 +123,6 @@ class LoginScreen extends Component {
 
   _login(params){
     this._showMessage('Loggin you in.')
-    console.log(params)
     return Api.post(`/user/login/`,params).then(resp => {
       if(resp.status === 0){
         var token = resp.message.token
