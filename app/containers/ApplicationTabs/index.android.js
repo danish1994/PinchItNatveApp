@@ -20,8 +20,7 @@ import { ActionCreators } from '../../actions'
 
 import AppNavigator from '../AppNavigator'
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
 
 class ApplicationTabs extends Component {
     constructor(props) {
@@ -40,7 +39,7 @@ class ApplicationTabs extends Component {
                   source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
               </View>
               <View style={{flex: 2}}>
-                <Text style={[styles.heading, {color: this.props.theme.color}]}>Hi! User.</Text>
+                <Text style={[styles.heading, {color: this.props.theme.color}]}>Hi! { this.props.username }.</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -97,23 +96,28 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   heading: {
-    fontSize: windowHeight/20,
+    fontSize: height/20,
     textAlign: 'center',
     margin: 10
   },
   text: {
-    fontSize: windowHeight/35,
+    fontSize: height/35,
     margin: 20,
     textAlign: 'justify'
   }
 })
 
 function mapStateToProps(state){
+  var name = 'User'
+  if(state.loggedIn.status)
+    name = state.loggedIn.user.name
+
   return {
     activeScreen: state.activeScreen,
     drawerTheme: state.drawerTheme,
     theme: state.theme.attributes,
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    username: name
   }
 }
 

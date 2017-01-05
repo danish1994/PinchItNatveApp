@@ -6,6 +6,14 @@ import * as types from '../actions/types'
 export const activeScreen = createReducer('LoadScreen',{
   [types.ACTIVE_SCREEN](state, action){
     return action.key
+  },
+  [types.LOGIN](state, action){
+    if(!action.loaded){
+        return 'UserScreen'
+    }
+    else{
+        return state
+    }
   }
 })
 

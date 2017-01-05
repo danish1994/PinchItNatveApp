@@ -9,9 +9,10 @@ export function logout(){
   }
 }
 
-export function setUser(user){
+export function setUser(user, loaded){
   return {
     type: types.LOGIN,
-    user
+    user,
+    loaded
   }
 }

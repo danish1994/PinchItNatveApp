@@ -8,15 +8,15 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button
+  Button,
+  Image
 } from 'react-native'
 
 import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window')
 
 class UserScreen extends Component {
   constructor(props) {
@@ -26,10 +26,20 @@ class UserScreen extends Component {
   render() {
     return (
       <ViewContainer>
-        <View style={styles.container}>
-          <Text style={[styles.heading, this.props.theme]}>
-            Hi. User
-          </Text>
+        <View style={{flex: 1, borderWidth: 2, borderColor: '#d6d7da'}}>
+          <View style={{flex: 1}}>
+            <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} style={{borderRadius: 50, flex: 1}}  />
+          </View>
+        </View>
+        <View style={{flex: 1}}>
+          <View style={{flex: 1, flexDirection: 'row', borderWidth: 2, borderColor: '#d6d7da'}}>
+            <View style={{flex: 1, borderWidth: 2, borderColor: '#d6d7da'}}>
+              <Text> Name</Text>
+            </View>
+            <View style={{flex: 1, borderWidth: 2, borderColor: '#d6d7da'}}>
+              <Text> {this.props.user.name}</Text>
+            </View>
+          </View>
         </View>
       </ViewContainer>
     )
@@ -37,26 +47,14 @@ class UserScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 20
-  },
-  heading: {
-    fontSize: windowHeight/20,
-    textAlign: 'center',
-    margin: 10
-  },
-  text: {
-    fontSize: windowHeight/35,
-    margin: 20,
-    textAlign: 'justify'
-  }
+
 })
 
 
 function mapStateToProps(state){
   return {
-    theme: state.theme.attributes
+    theme: state.theme.attributes,
+    user: state.loggedIn.user
   }
 }
 

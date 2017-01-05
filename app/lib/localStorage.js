@@ -13,6 +13,7 @@ export const loadState = (props) => {
         setTimeout(function() {
           props.setPosts({posts: resp.posts})
           props.setActiveScreen('TitleScreen')
+          props.setUser(resp.user, 'loaded')
           props.setTheme(resp.theme)
         },1000)
       } else {
@@ -33,7 +34,8 @@ export const saveState = (state) => {
   try {
     const serializedState = JSON.stringify({
       theme: state.theme.key,
-      posts: state.posts
+      posts: state.posts,
+      user: state.loggedIn
     })
 
     AsyncStorage.setItem('state', serializedState).then(()=>{
