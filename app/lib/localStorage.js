@@ -35,7 +35,7 @@ export const saveState = (state) => {
     const serializedState = JSON.stringify({
       theme: state.theme.key,
       posts: state.posts,
-      user: state.loggedIn
+      user: state.user
     })
 
     AsyncStorage.setItem('state', serializedState).then(()=>{

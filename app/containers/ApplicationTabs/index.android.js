@@ -109,14 +109,14 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state){
   var name = 'User'
-  if(state.loggedIn.status)
-    name = state.loggedIn.user.name
+  if(state.user.status)
+    name = state.user.user.name
 
   return {
     activeScreen: state.activeScreen,
     drawerTheme: state.drawerTheme,
     theme: state.theme.attributes,
-    loggedIn: state.loggedIn,
+    loggedIn: state.user,
     username: name
   }
 }

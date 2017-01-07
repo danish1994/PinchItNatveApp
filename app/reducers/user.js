@@ -3,14 +3,17 @@
 import createReducer from '../lib/createReducer'
 import * as types from '../actions/types'
 
-export const loggedIn = createReducer({
+export const user = createReducer({
   status: false
 },{
   [types.LOGIN](state, action){
-    return action.user
-  }
-},
-{
+    if(action.user){
+        return action.user
+    }
+    else{
+      return state
+    }
+  },
   [types.LOGOUT](state, action){
     return {
       status: false
