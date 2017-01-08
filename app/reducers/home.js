@@ -17,6 +17,9 @@ export const activeScreen = createReducer('LoadScreen',{
   },
   [types.LOGOUT](state, action){
     return 'LoginScreen'
+  },
+  [types.LOAD_POST](state, action){
+    return 'PostScreen'
   }
 })
 

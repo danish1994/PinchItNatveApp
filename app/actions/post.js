@@ -5,9 +5,6 @@ import Api from '../lib/api'
 
 export function loadPosts(){
   return (dispatch, getState) => {
-    const params = [
-      `type=male`
-    ].join('&')
     return Api.get(`/post/`).then(resp => {
       dispatch(setPosts({ posts: resp }))
     }).catch((err) => {
