@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import {
+  Alert,
   DrawerLayoutAndroid,
   Button,
   View,
@@ -10,7 +11,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  BackAndroid
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -25,6 +27,21 @@ const { width, height } = Dimensions.get('window')
 class ApplicationTabs extends Component {
     constructor(props) {
         super(props)
+        BackAndroid.addEventListener('hardwareBackPress', function() {
+          Alert.alert(
+            'Exit',
+            'Do you really want to exit the app?',
+            [
+              {text: 'Cancel', onPress: () => {
+                console.log('Canceled')
+              }, style: 'cancel'},
+              {text: 'OK', onPress: () => {
+                BackAndroid.exitApp(0)
+              }},
+            ]
+          )
+          return true
+        })
     }
 
     render() {
