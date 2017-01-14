@@ -72,6 +72,7 @@ class PostScreen extends Component {
   }
 
   _refresh(){
+    ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.LONG)
     this.props.loadPosts()
   }
 
@@ -79,7 +80,7 @@ class PostScreen extends Component {
     if(this.props.currentPost > 0)
       this.props.getPrevPost()
     else{
-      ToastAndroid.show('No More Post Available ', ToastAndroid.LONG)
+      ToastAndroid.show('No More Post Available.', ToastAndroid.LONG)
     }
   }
 
@@ -87,7 +88,7 @@ class PostScreen extends Component {
     if(this.props.currentPost < (this.props.postsLength - 1))
       this.props.getNextPost()
     else{
-      ToastAndroid.show('No More Post Available ', ToastAndroid.LONG)
+      ToastAndroid.show('No More Post Available.', ToastAndroid.LONG)
     }
   }
 }
