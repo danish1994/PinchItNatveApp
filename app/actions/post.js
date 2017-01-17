@@ -9,7 +9,14 @@ export function loadPosts(){
       dispatch(setPosts({ posts: resp }))
     }).catch((err) => {
       console.log(err)
+      dispatch(loadError())
     })
+  }
+}
+
+export function loadError(){
+  return {
+    type: 'loadError'
   }
 }
 

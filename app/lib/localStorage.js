@@ -19,7 +19,8 @@ export const loadState = (props) => {
       } else {
         //Splash Screen Delay
         setTimeout(function() {
-          props.setActiveScreen('TutorialScreen')
+          props.setActiveScreen('TitleScreen')
+          // props.setActiveScreen('TutorialScreen')
         },100)
       }
     }).catch((err) => {

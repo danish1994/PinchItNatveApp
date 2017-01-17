@@ -22,6 +22,9 @@ import { ActionCreators } from '../../actions'
 
 import AppNavigator from '../AppNavigator'
 
+
+const userImage = require('../../images/user.png')
+
 const { width, height } = Dimensions.get('window')
 
 class ApplicationTabs extends Component {
@@ -53,7 +56,7 @@ class ApplicationTabs extends Component {
               <View style={{flex: 1}}>
                 <Image
                   style={{width: 100, height: 100, borderRadius: 50}}
-                  source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+                  source={userImage} />
               </View>
               <View style={{flex: 2}}>
                 <Text style={[styles.heading, {color: this.props.theme.color}]}>Hi! { this.props.username }.</Text>
@@ -95,10 +98,11 @@ class ApplicationTabs extends Component {
     }
 
     _user(){
-      if(this.props.loggedIn.status)
-        this._activeScreen('UserScreen')
-      else
-        this._activeScreen('LoginScreen')
+      console.log('user')
+      // if(this.props.loggedIn.status)
+      //   this._activeScreen('UserScreen')
+      // else
+      //   this._activeScreen('LoginScreen')
     }
 
     _activeScreen(key){
