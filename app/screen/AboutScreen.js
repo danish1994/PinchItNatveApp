@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: height/20,
     textAlign: 'center',
-    margin: 10
+    margin: 30
   },
   text: {
-    fontSize: height/35,
+    fontSize: height/30,
     margin: 20,
     textAlign: 'justify'
   }

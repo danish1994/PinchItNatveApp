@@ -38,7 +38,7 @@ class LoadScreen extends Component {
             resizeMode='cover'>
             <View style={styles.headerContainer}>
               <View style={styles.headerTitleView}>
-                <Text style={styles.titleViewText}>Loading...</Text>
+                <Text style={styles.titleViewText}></Text>
               </View>
             </View>
           </Image>

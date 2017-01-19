@@ -35,6 +35,7 @@ let counter = 0
   2 - Down/South
   3 - Left/West
 */
+
 class motionController{
   constructor(){
     this.startPos = {
@@ -116,7 +117,6 @@ class PostScreen extends Component {
       this._previousPost()
     }
   }
-  
   
   _onResponderTerminationRequest(evt){
     console.log('onResponderTerminationRequest')
