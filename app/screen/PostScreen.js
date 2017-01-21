@@ -22,6 +22,8 @@ import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
 
+import Api from '../lib/api'
+
 const { width, height } = Dimensions.get('window')
 
 
@@ -63,9 +65,9 @@ class motionController{
       }
     }else{
       if(this.startPos.y > pageY){
-        return 0 //Move Left
+        return 2 //Move Down
       }else{
-        return 2 //Move Right
+        return 0 //Move Up
       }
     }
   }
@@ -79,14 +81,14 @@ class PostScreen extends Component {
 
   render() {
     return (
-      <ViewContainer>
-        <View
+      <View
           style={{flex: 1}}
           onStartShouldSetResponder = {evt => true}
           onMoveShouldSetResponder = {evt => true}
           onResponderGrant = {this._onResponderGrant.bind(this)}
           onResponderRelease = {this._onResponderRelease.bind(this)}
         >
+        <ViewContainer> 
           <View style = {styles.container}>
             <Image
               style={styles.image}
@@ -101,8 +103,8 @@ class PostScreen extends Component {
               <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>
             </View>
           </View>
-        </View>
-      </ViewContainer>
+        </ViewContainer>
+      </View>
     )
   }
 
@@ -111,9 +113,9 @@ class PostScreen extends Component {
   }
 
   _onResponderRelease(evt){
-    if(this.motionController.endMove(evt.nativeEvent) == 0){
+    if(this.motionController.endMove(evt.nativeEvent) == 2){
       this._nextPost()
-    }else if(this.motionController.endMove(evt.nativeEvent) == 2){
+    }else if(this.motionController.endMove(evt.nativeEvent) == 0){
       this._previousPost()
     }
   }
@@ -128,8 +130,13 @@ class PostScreen extends Component {
 
 
   _refresh(){
-    ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.LONG)
-    this.props.loadPosts()
+    ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.SHORT)
+    Api.get(`/post/`).then(resp => {
+      this.props.setPosts({ posts: resp })
+    }).catch((err) => {
+      console.log(err)
+      ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
+    })
   }
 
   _previousPost() {
@@ -144,7 +151,7 @@ class PostScreen extends Component {
     if(this.props.currentPost < (this.props.postsLength - 1))
       this.props.getNextPost()
     else{
-      ToastAndroid.show('No More Post Available.', ToastAndroid.LONG)
+      ToastAndroid.show('No More Post Available.', ToastAndroid.SHORT)
     }
   }
 }

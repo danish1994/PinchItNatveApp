@@ -27,7 +27,7 @@ class TitleScreen extends Component {
       <ViewContainer>
         <View style={styles.container}>
           <Text style={[styles.welcome, this.props.theme]}>
-            Test App
+            Pinched It
           </Text>
           <Button
             onPress = {() => this.props.setActiveScreen('PostScreen')}

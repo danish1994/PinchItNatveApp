@@ -20,6 +20,8 @@ import TutorialScreen from '../screen/TutorialScreen'
 
 import { loadState, saveState } from '../lib/localStorage'
 
+import Api from '../lib/api'
+
 
 class AppNavigator extends Component {
     constructor(props) {
@@ -31,8 +33,15 @@ class AppNavigator extends Component {
       if (this.props.activeScreen === 'TitleScreen'){ Scene = TitleScreen }
       if (this.props.activeScreen === 'PostScreen'){
         if(this.props.posts.length == 0){
-          this._showMessage('Loading Posts. Please Wait')
-          this.props.loadPosts()
+          ToastAndroid.show('Loading Posts. Please Wait.', ToastAndroid.SHORT)
+          Api.get(`/post/`).then(resp => {
+            this.props.setPosts({ posts: resp })
+            this.props.setActiveScreen('PostScreen')
+          }).catch((err) => {
+            console.log(err)
+            ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
+            this.props.setActiveScreen('TitleScreen')
+          })
           Scene = TitleScreen
         }else{
           Scene = PostScreen
@@ -49,10 +58,6 @@ class AppNavigator extends Component {
       return(
         <Scene {...this.props} />
       )
-    }
-
-    _showMessage(msg){
-      ToastAndroid.show(msg, ToastAndroid.SHORT)
     }
 }
 

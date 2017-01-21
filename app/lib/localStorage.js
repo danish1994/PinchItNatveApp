@@ -21,7 +21,7 @@ export const loadState = (props) => {
         setTimeout(function() {
           props.setActiveScreen('TitleScreen')
           // props.setActiveScreen('TutorialScreen')
-        },100)
+        },1000)
       }
     }).catch((err) => {
       console.log(err)

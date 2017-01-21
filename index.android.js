@@ -44,4 +44,4 @@ const App = () => (
   </Provider>
 )
 
-AppRegistry.registerComponent('TestApp', () => App)
+AppRegistry.registerComponent('PinchedIt', () => App)
