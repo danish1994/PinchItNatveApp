@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class PinchedIt extends Component {
+export default class pinch extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('PinchedIt', () => PinchedIt);
+AppRegistry.registerComponent('pinch', () => pinch);

@@ -87,11 +87,11 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.pinchedit"
+        applicationId "in.pinch"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
-        versionName "1.0"
+        versionCode 8
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

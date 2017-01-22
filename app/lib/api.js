@@ -26,7 +26,7 @@ class Api {
   }
 
   static xhr(route, params, verb) {
-    const url =`https://salty-cove-91712.herokuapp.com`+`${route}`
+    const url =`http://pinched.in`+`${route}`
     console.log(url)
     let options = Object.assign({ method: verb }, params ? { body: params } : null );
     options.headers = Api.headers()
