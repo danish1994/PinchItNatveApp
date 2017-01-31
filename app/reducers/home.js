@@ -24,10 +24,10 @@ export const activeScreen = createReducer('LoadScreen',{
 })
 
 export const theme = createReducer({
-  key: 'dark',
+  key: 'light',
   attributes: {
-    backgroundColor: '#111111',
-    color: '#eeeeee'
+    backgroundColor: '#eeeeee',
+    color: '#111111'
   }
 },{
   [types.THEME](state, action){
@@ -50,17 +50,17 @@ export const theme = createReducer({
         }
       default:
         return {
-          key: 'dark',
+          key: 'light',
           attributes: {
-            backgroundColor: '#111111',
-            color: '#eeeeee'
+            backgroundColor: '#eeeeee',
+            color: '#111111'
           }
         }
     }
   }
 })
 
-export const drawerTheme = createReducer('rgba(0,0,0,0.8)',{
+export const drawerTheme = createReducer('rgba(255,255,255,0.8)',{
   [types.THEME](state, action){
     switch (action.theme) {
       case 'light':
@@ -68,7 +68,7 @@ export const drawerTheme = createReducer('rgba(0,0,0,0.8)',{
       case 'dark':
         return 'rgba(0,0,0,0.8)'
       default:
-        return 'rgba(0,0,0,0.8)'
+        return 'rgba(255,255,255,0.8)'
     }
   }
 })

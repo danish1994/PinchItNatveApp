@@ -88,11 +88,11 @@ class PostScreen extends Component {
           onResponderGrant = {this._onResponderGrant.bind(this)}
           onResponderRelease = {this._onResponderRelease.bind(this)}
         >
-        <ViewContainer> 
+        <ViewContainer>
           <View style = {styles.container}>
             <Image
               style={styles.image}
-              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+              source={{uri: this.props.post.image}}
             />
           </View>
           <View style = {{flex: 1 , alignItems: 'stretch'}}>
@@ -119,7 +119,7 @@ class PostScreen extends Component {
       this._previousPost()
     }
   }
-  
+
   _onResponderTerminationRequest(evt){
     console.log('onResponderTerminationRequest')
   }

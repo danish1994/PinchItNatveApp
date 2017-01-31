@@ -15,13 +15,13 @@ export const loadState = (props) => {
           props.setActiveScreen('TitleScreen')
           props.setUser(resp.user, 'loaded')
           props.setTheme(resp.theme)
-        },1000)
+        },2000)
       } else {
         //Splash Screen Delay
         setTimeout(function() {
           props.setActiveScreen('TitleScreen')
           // props.setActiveScreen('TutorialScreen')
-        },1000)
+        },2000)
       }
     }).catch((err) => {
       console.log(err)

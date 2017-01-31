@@ -78,7 +78,7 @@ class ApplicationTabs extends Component {
             />
             <Button
               onPress = {() => this._activeScreen('ThemeScreen')}
-              title = 'Themes'
+              title = 'Modes'
             />
           </View>
         </View>

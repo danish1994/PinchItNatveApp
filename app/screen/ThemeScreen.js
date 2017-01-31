@@ -27,16 +27,16 @@ class ThemeScreen extends Component {
       <ViewContainer>
         <View style={styles.container}>
           <Text style={[styles.heading, this.props.theme]}>
-            Themes
+            Modes
           </Text>
           <Button
             onPress = {() => this.props.setTheme('light')}
-            title = 'Light'
+            title = 'Day Mode'
             style = {styles.button}
           />
           <Button
             onPress = {() => this.props.setTheme('dark')}
-            title = 'Dark'
+            title = 'Night Mode'
             style = {styles.button}
           />
         </View>
