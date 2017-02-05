@@ -35,7 +35,7 @@ class Api {
       if(resp.ok)
         return resp.json()
       else
-        console.log('error')
+        console.log(resp)
     }).then((resp) => {
       return resp
     })
