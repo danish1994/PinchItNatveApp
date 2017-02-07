@@ -5,7 +5,12 @@ import * as types from '../actions/types'
 
 export const posts = createReducer([],{
   [types.LOAD_POST](state, action){
-    return action.posts
+    if(action.append){
+      return action.posts.concat(state)
+    }
+    else{
+      return action.posts
+    }
   }
 })
 

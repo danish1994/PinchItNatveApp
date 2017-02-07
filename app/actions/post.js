@@ -20,10 +20,11 @@ export function loadError(){
   }
 }
 
-export function setPosts({ posts }){
+export function setPosts({ posts }, append){
   return {
     type: types.LOAD_POST,
-    posts
+    posts,
+    append
   }
 }
 

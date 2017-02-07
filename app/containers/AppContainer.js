@@ -23,24 +23,21 @@ class AppContainer extends Component {
       const backgroundJob = {
         jobKey: 'loadPostBackground',
         job: () => {
-          console.log('Loading Posts')
-          Api.get(`/post/`).then(resp => {
-            console.log(this.props.posts)
-            console.log(resp)
-
-            let newPosts = resp
-            let oldPosts = this.props.posts
-
-            if(oldPosts){
-              if(newPosts[newPosts.length-1].postid === oldPosts[oldPosts.length-1].postid){
-                console.log('no new post')
-                // this._pushNotification(newPosts[newPosts.length-1])
-              }else{
-                this._pushNotification(newPosts[newPosts.length-1])
-              }
+          var PushNotification = require('react-native-push-notification')
+          PushNotification.localNotification({
+            message: "Background Task Running",
+          })
+          let currentPost = this.props.posts[0]
+          let url = `/post/`
+          if(currentPost){
+            url = `/post/?updatedAt=` + currentPost.updatedAt 
+          }
+          Api.get(url).then(resp => {
+            // this.props.setPosts({ posts: resp }, true)
+            if(resp.length != 0){
+              this.props.setPosts({ posts: resp }, true)
+              this._pushNotification(resp[0])    
             }
-
-            
           }).catch((err) => {
             console.log(err)
           })
@@ -62,8 +59,9 @@ class AppContainer extends Component {
     _pushNotification(post){
       var PushNotification = require('react-native-push-notification')
       PushNotification.localNotification({
-        title: post.title,
-        message: "New Posts Available",
+        title: "New Pinch",
+        message: post.title,
+        bigText: post.title
       })
     }
 

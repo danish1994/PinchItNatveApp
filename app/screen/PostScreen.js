@@ -133,8 +133,13 @@ class PostScreen extends Component {
 
   _refresh(){
     ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.SHORT)
-    Api.get(`/post/`).then(resp => {
-      this.props.setPosts({ posts: resp })
+    let currentPost = this.props.posts[0]
+    let url = `/post/`
+    if(currentPost){
+      url = `/post/?updatedAt=` + currentPost.updatedAt 
+    }
+    Api.get(url).then(resp => {
+      this.props.setPosts({ posts: resp }, true)
     }).catch((err) => {
       console.log(err)
       ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
@@ -187,7 +192,8 @@ function mapStateToProps(state){
       post: state.posts[state.currentPost],
       postsLength: state.posts.length,
       currentPost: state.currentPost,
-      counter: 0
+      counter: 0,
+      posts: state.posts,
   }
 }
 
