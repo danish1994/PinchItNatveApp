@@ -1,4 +1,4 @@
-package com.pinch;
+package in.pinch;
 
 import com.facebook.react.ReactActivity;
 import io.realm.react.RealmReactPackage;
@@ -13,6 +13,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "pinch";
+        return "Pinch";
     }
 }

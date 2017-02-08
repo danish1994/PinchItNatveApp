@@ -1,4 +1,4 @@
-package com.pinch;
+package in.pinch;
 
 import android.app.Application;
 import android.util.Log;

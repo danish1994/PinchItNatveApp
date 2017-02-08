@@ -66,4 +66,4 @@ const App = () => (
   </Provider>
 )
 
-AppRegistry.registerComponent('pinch', () => App)
+AppRegistry.registerComponent('Pinch', () => App)

@@ -12,6 +12,10 @@ import Api from '../lib/api'
 
 import BackgroundJob from "react-native-background-job"
 
+import {
+  ToastAndroid
+} from 'react-native'
+
 
 class AppContainer extends Component {
     constructor(props) {
@@ -23,10 +27,7 @@ class AppContainer extends Component {
       const backgroundJob = {
         jobKey: 'loadPostBackground',
         job: () => {
-          var PushNotification = require('react-native-push-notification')
-          PushNotification.localNotification({
-            message: "Background Task Running",
-          })
+          // ToastAndroid.show('Background Proccess Test.', ToastAndroid.SHORT)
           let currentPost = this.props.posts[0]
           let url = `/post/`
           if(currentPost){
@@ -36,7 +37,9 @@ class AppContainer extends Component {
             // this.props.setPosts({ posts: resp }, true)
             if(resp.length != 0){
               this.props.setPosts({ posts: resp }, true)
-              this._pushNotification(resp[0])    
+              for(let i=0; i<resp.length; i++){
+                this._pushNotification(resp[i])  
+              }
             }
           }).catch((err) => {
             console.log(err)
