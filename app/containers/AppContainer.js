@@ -23,9 +23,11 @@ BackgroundJob.cancelAll()
 const backgroundJob = {
     jobKey: 'loadPostBackground',
     job: () => {
+        console.log('Background')
         AsyncStorage.getItem('state').then((state) => {
             if (state) {
                 state = JSON.parse(state)
+                console.log(state)
                 let currentPost = undefined
                 try {
                     currentPost = state.posts[0]
@@ -62,8 +64,7 @@ const backgroundJob = {
         })
 
     },
-    persist: false,
-    networkType: BackgroundJob.NETWORK_TYPE_UNMETERED
+    persist: false
 }
 
 
@@ -77,7 +78,7 @@ class AppContainer extends Component {
         var backgroundSchedule = {
             jobKey: "loadPostBackground",
             timeout: 5000,
-            period: 9000000
+            period: 900000
         }
 
         BackgroundJob.schedule(backgroundSchedule)

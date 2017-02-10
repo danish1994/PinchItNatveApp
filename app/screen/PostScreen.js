@@ -13,7 +13,9 @@ import {
   TouchableHighlight,
   Image,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  TouchableOpacity,
+  Linking
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -81,33 +83,44 @@ class PostScreen extends Component {
 
   render() {
     return (
-      <View
-          style={{flex: 1}}
-          onStartShouldSetResponder = {evt => true}
-          onMoveShouldSetResponder = {evt => true}
-          onResponderGrant = {this._onResponderGrant.bind(this)}
-          onResponderRelease = {this._onResponderRelease.bind(this)}
-        >
-        <ViewContainer>
-          <View style = {styles.container}>
-            <Image
-              style={styles.image}
-              source={{uri: this.props.post.image}}
-            />
-          </View>
-          <View style = {{flex: 1 , alignItems: 'stretch'}}>
-            <View style = {{flex: 1.5 , alignItems: 'stretch'}}>
-              <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <View
+            style={{flex: 1}}
+            onStartShouldSetResponder = {evt => true}
+            onMoveShouldSetResponder = {evt => true}
+            onResponderGrant = {this._onResponderGrant.bind(this)}
+            onResponderRelease = {this._onResponderRelease.bind(this)}
+          >
+          <ViewContainer>
+            <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
+              <Image
+                style={styles.image}
+                source={{uri: this.props.post.image}}
+              />
             </View>
-            <View style = {{flex: 4 , alignItems: 'stretch'}}>
-              <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>
+            <View style = {{flex: 1, alignItems: 'stretch'}}>
+              <View style = {{flex: 1.5 , alignItems: 'stretch'}}>
+                <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
+              </View>
+              <View style = {{flex: 4.5, alignItems: 'stretch'}}>
+                <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>
+              </View>
             </View>
-            <View style = {{flex: 1 , alignItems: 'stretch'}}>
-            </View>
-          </View>
-        </ViewContainer>
+          </ViewContainer>
+        </View>
+        <TouchableOpacity style={{flex: 0.09}} onPress={ () => this._readMore() }>
+          <Text style = {[{flex: 1, textAlign: 'center'}, this.props.theme, {backgroundColor: '#dcdcdc'}]}>Read More</Text>
+        </TouchableOpacity>
       </View>
     )
+  }
+
+  _readMore(){
+    if(this.props.post.link){
+      Linking.openURL('https://google.com').catch(err => console.error('An error occurred', err));
+    }else{
+      ToastAndroid.show('No Link Available.', ToastAndroid.SHORT)
+    }
   }
 
   _onResponderGrant(evt){
