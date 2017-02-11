@@ -23,11 +23,10 @@ BackgroundJob.cancelAll()
 const backgroundJob = {
     jobKey: 'loadPostBackground',
     job: () => {
-        console.log('Background')
+        console.log('Background Task')
         AsyncStorage.getItem('state').then((state) => {
             if (state) {
                 state = JSON.parse(state)
-                console.log(state)
                 let currentPost = undefined
                 try {
                     currentPost = state.posts[0]
@@ -40,8 +39,9 @@ const backgroundJob = {
                 }
                 Api.get(url).then(resp => {
                     if (resp.length != 0) {
-                        for (let i = 0; i < resp.length; i++) {
-                            let post = resp[i]
+                        let counter = resp.length > 5 ? 5 : resp.length
+                        for (let i = 0; i < counter; i++) {
+                            let post = resp[resp.length - i - 1]
                             var PushNotification = require('react-native-push-notification')
                             PushNotification.localNotification({
                                 title: "New Pinch",
@@ -78,7 +78,7 @@ class AppContainer extends Component {
         var backgroundSchedule = {
             jobKey: "loadPostBackground",
             timeout: 5000,
-            period: 900000
+            period: 9000000
         }
 
         BackgroundJob.schedule(backgroundSchedule)

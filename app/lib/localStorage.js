@@ -11,8 +11,8 @@ export const loadState = (props) => {
 
         //Splash Screen Delay
         setTimeout(function() {
-          props.setPosts({posts: resp.posts}, false)
           props.setActiveScreen('TitleScreen')
+          props.setPosts({posts: resp.posts}, false)
           props.setUser(resp.user, 'loaded')
           props.setTheme(resp.theme)
         },2000)
