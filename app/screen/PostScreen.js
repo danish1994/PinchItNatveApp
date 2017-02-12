@@ -116,11 +116,7 @@ class PostScreen extends Component {
   }
 
   _readMore(){
-    if(this.props.post.link){
-      Linking.openURL('https://google.com').catch(err => console.error('An error occurred', err));
-    }else{
-      ToastAndroid.show('No Link Available.', ToastAndroid.SHORT)
-    }
+    Linking.openURL(this.props.post.link || ('https://www.google.co.in/webhp?q=google+search'+this.props.post.title)).catch(err => console.error('An error occurred', err));
   }
 
   _onResponderGrant(evt){
@@ -149,12 +145,15 @@ class PostScreen extends Component {
     let currentPost = this.props.posts[0]
     let url = `/post/`
     if(currentPost){
-      url = `/post/?updatedAt=` + currentPost.updatedAt 
+      url = `/post/?updatedAt=` + currentPost.updatedAt
     }
     Api.get(url).then(resp => {
-      this.props.setPosts({ posts: resp }, true)
+      if (resp.length != 0) {
+        this.props.setPosts({ posts: resp }, true)
+      }else{
+        ToastAndroid.show('You Are Already Upto Date.', ToastAndroid.SHORT)
+      }
     }).catch((err) => {
-      console.log(err)
       ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
     })
   }
