@@ -116,7 +116,7 @@ class PostScreen extends Component {
   }
 
   _readMore(){
-    Linking.openURL(this.props.post.link || ('https://www.google.co.in/webhp?q=google+search'+this.props.post.title)).catch(err => console.error('An error occurred', err));
+    Linking.openURL(this.props.post.link || ('https://www.google.co.in/search?q='+this.props.post.title)).catch(err => console.error('An error occurred', err));
   }
 
   _onResponderGrant(evt){
