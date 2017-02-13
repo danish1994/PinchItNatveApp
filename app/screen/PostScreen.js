@@ -148,11 +148,10 @@ class PostScreen extends Component {
       url = `/post/?updatedAt=` + currentPost.updatedAt
     }
     Api.get(url).then(resp => {
-      if (resp.length != 0) {
-        this.props.setPosts({ posts: resp }, true)
-      }else{
+      if (resp.length == 0) {
         ToastAndroid.show('You Are Already Upto Date.', ToastAndroid.SHORT)
       }
+      this.props.setPosts({ posts: resp }, true)
     }).catch((err) => {
       ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
     })
