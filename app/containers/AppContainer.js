@@ -41,7 +41,7 @@ const backgroundJob = {
                     if (resp.length != 0) {
                         let counter = resp.length > 5 ? 5 : resp.length
                         for (let i = 0; i < counter; i++) {
-                            let post = resp[resp.length - i - 1]
+                            let post = resp[i]
                             var PushNotification = require('react-native-push-notification')
                             PushNotification.localNotification({
                                 title: "New Pinch",
