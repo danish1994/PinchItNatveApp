@@ -90,7 +90,7 @@ android {
         applicationId "in.pinch"
         minSdkVersion 21
         targetSdkVersion 22
-        versionCode 26
+        versionCode 27
         versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -143,7 +143,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-push-notification')
-    compile ('com.google.android.gms:play-services-gcm:8.1.0') {
+    compile ('com.google.gms:google-services:3.0.0') {
         force = true;
     }
 }

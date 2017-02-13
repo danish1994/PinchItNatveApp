@@ -5,10 +5,10 @@ import { AppRegistry } from 'react-native'
 
 import { Provider } from 'react-redux'
 import {
-  createStore,
-  applyMiddleware,
-  combineReducers,
-  compose
+    createStore,
+    applyMiddleware,
+    combineReducers,
+    compose
 } from 'redux'
 
 import { loadState, saveState } from './app/lib/localStorage'
@@ -20,50 +20,70 @@ import reducer from './app/reducers'
 
 import AppContainer from './app/containers/AppContainer'
 
+import Api from './app/lib/api'
+
 // Register Push Notifications
 var PushNotification = require('react-native-push-notification');
 
 PushNotification.configure({
-  // (required) Called when a remote or local notification is opened or received
-  onNotification: function(notification) {
-      console.log( 'NOTIFICATION:', notification );
-  },
+    // (optional) Called when Token is generated (iOS and Android)
+    onRegister: function(token) {
+        Api.post(`/deviceid/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(token.token) + "&" + encodeURIComponent('source') + '=' + encodeURIComponent('android')).then(resp => {
+            console.log(resp)
+        }).catch((err) => {
+            console.log(err)
+        })
+    },
 
-  // Should the initial notification be popped automatically
-  // default: true
-  popInitialNotification: true,
+    // (required) Called when a remote or local notification is opened or received
+    onNotification: function(notification) {
+        console.log('NOTIFICATION:', notification);
+    },
 
-  /**
-    * (optional) default: true
-    * - Specified if permissions (ios) and token (android and ios) will requested or not,
-    * - if not, you must call PushNotificationsHandler.requestPermissions() later
-    */
-  requestPermissions: true,
+    // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
+    senderID: "756150409433",
+
+    // IOS ONLY (optional): default: all - Permissions to register.
+    permissions: {
+        alert: true,
+        badge: true,
+        sound: true
+    },
+
+    // Should the initial notification be popped automatically
+    // default: true
+    popInitialNotification: true,
+
+    /**
+     * (optional) default: true
+     * - Specified if permissions (ios) and token (android and ios) will requested or not,
+     * - if not, you must call PushNotificationsHandler.requestPermissions() later
+     */
+    requestPermissions: true,
 });
 
 
-const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  })
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
 
 function configureStore(initialState) {
-  const enhancer = compose(
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware
+    const enhancer = compose(
+        applyMiddleware(
+            thunkMiddleware,
+            loggerMiddleware
+        )
     )
-  )
-  return createStore(reducer, initialState, enhancer)
+    return createStore(reducer, initialState, enhancer)
 }
 
 const store = configureStore({});
 
 store.subscribe(() => {
-  saveState(store.getState())
+    saveState(store.getState())
 })
 
-const App = () => (
-  <Provider store = {store}>
-    <AppContainer />
-  </Provider>
+const App = () => ( < Provider store = { store } >
+    < AppContainer / >
+    < /Provider>
 )
 
 AppRegistry.registerComponent('Pinch', () => App)
