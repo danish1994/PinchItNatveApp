@@ -68,7 +68,7 @@ import {
 // }
 
 
-BackgroundJob.register(backgroundJob)
+// BackgroundJob.register(backgroundJob)
 
 
 class AppContainer extends Component {
