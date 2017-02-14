@@ -3,7 +3,6 @@ package in.pinch;
 import com.facebook.react.ReactActivity;
 import io.realm.react.RealmReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.pilloxa.backgroundjob.BackgroundJobPackage;
 
 public class MainActivity extends ReactActivity {
 
