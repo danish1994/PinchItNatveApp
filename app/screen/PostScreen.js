@@ -108,8 +108,8 @@ class PostScreen extends Component {
             </View>
           </ViewContainer>
         </View>
-        <TouchableOpacity style={{flex: 0.09, backgroundColor: '#dcdcdc'}} onPress={ () => this._readMore() }>
-          <Text style = {[{flex: 1, textAlign: 'center', margin: 12}, this.props.theme, {backgroundColor: '#dcdcdc'}]}>Read More</Text>
+        <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
+          <Text style = {[{flex: 1, textAlign: 'center', margin: 12}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
         </TouchableOpacity>
       </View>
     )
@@ -205,6 +205,7 @@ function mapStateToProps(state){
       currentPost: state.currentPost,
       counter: 0,
       posts: state.posts,
+      readMoreTheme: state.readMoreTheme
   }
 }
 

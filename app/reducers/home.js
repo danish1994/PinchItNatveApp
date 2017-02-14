@@ -72,3 +72,16 @@ export const drawerTheme = createReducer('rgba(255,255,255,0.8)',{
     }
   }
 })
+
+export const readMoreTheme = createReducer('rgba(220,220,220,0.8)',{
+  [types.THEME](state, action){
+    switch (action.theme) {
+      case 'light':
+        return 'rgba(220,220,220,0.8)'
+      case 'dark':
+        return 'rgba(44,44,44,1)'
+      default:
+        return 'rgba(220,220,220,0.8)'
+    }
+  }
+})
