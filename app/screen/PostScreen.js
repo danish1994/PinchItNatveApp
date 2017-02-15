@@ -102,8 +102,14 @@ class PostScreen extends Component {
               <View style = {{flex: 1.5 , alignItems: 'stretch'}}>
                 <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
               </View>
-              <View style = {{flex: 4.5, alignItems: 'stretch'}}>
-                <Text style={[styles.post, this.props.theme]}>{this.props.post.post}</Text>
+              <View style = {{flex: 5, alignItems: 'stretch'}}>
+                <Text style={[styles.post, this.props.theme]}>
+                  {this.props.post.post}
+                  {'\n'}
+                  {'\n'}
+                  - Pinch By: {this.props.post.writer.name}
+
+                </Text>
               </View>
             </View>
           </ViewContainer>
@@ -182,12 +188,12 @@ const styles = StyleSheet.create({
   },
   heading: {
     textAlign: 'left',
-    fontSize: height/25,
+    fontSize: height/30,
     margin: 10
   },
   post: {
     textAlign: 'left',
-    fontSize: height/35,
+    fontSize: height/37,
     alignSelf: 'stretch',
     margin: 10
   },

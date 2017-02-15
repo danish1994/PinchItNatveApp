@@ -44,12 +44,12 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   heading: {
-    fontSize: height/20,
+    fontSize: height/30,
     textAlign: 'center',
     margin: 30
   },
   text: {
-    fontSize: height/30,
+    fontSize: height/37,
     margin: 20,
     textAlign: 'justify'
   }
