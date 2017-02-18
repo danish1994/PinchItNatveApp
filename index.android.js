@@ -28,6 +28,7 @@ var PushNotification = require('react-native-push-notification');
 PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function(token) {
+        console.log(token)
         Api.post(`/deviceid/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(token.token) + "&" + encodeURIComponent('source') + '=' + encodeURIComponent('android')).then(resp => {
             console.log(resp)
         }).catch((err) => {
@@ -37,7 +38,7 @@ PushNotification.configure({
 
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
-        console.log('NOTIFICATION:', notification);
+        console.log('NOTIFICATION:', notification)
     },
 
     // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)

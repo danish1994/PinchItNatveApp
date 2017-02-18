@@ -99,23 +99,18 @@ class PostScreen extends Component {
               />
             </View>
             <View style = {{flex: 1, alignItems: 'stretch'}}>
-              <View style = {{flex: 1.5 , alignItems: 'stretch'}}>
                 <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
-              </View>
-              <View style = {{flex: 5, alignItems: 'stretch'}}>
                 <Text style={[styles.post, this.props.theme]}>
                   {this.props.post.post}
-                  {'\n'}
-                  {'\n'}
-                  - Pinch By: {this.props.post.writer.name}
-
                 </Text>
-              </View>
+                <Text style={[styles.post, this.props.theme, styles.postedBy]}>
+                  - Pinch By: {this.props.post.writer.name}
+                </Text>
             </View>
           </ViewContainer>
         </View>
         <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
-          <Text style = {[{flex: 1, textAlign: 'center', margin: 12}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
+          <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
         </TouchableOpacity>
       </View>
     )
@@ -189,17 +184,27 @@ const styles = StyleSheet.create({
   heading: {
     textAlign: 'left',
     fontSize: height/30,
-    margin: 10
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 5,
+    fontWeight: 'bold'
   },
   post: {
     textAlign: 'left',
     fontSize: height/37,
     alignSelf: 'stretch',
-    margin: 10
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
   },
   image: {
     resizeMode: 'stretch',
     flex: 1
+  },
+  postedBy: {
+    fontStyle: 'italic',
+    fontWeight: 'bold'
   }
 })
 

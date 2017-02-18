@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: height/20,
     textAlign: 'center',
-    margin: 20
+    margin: 20,
+    fontWeight: 'bold'
   },
   text: {
     fontSize: height/30,
