@@ -8,7 +8,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button
+  Button,
+  Image
 } from 'react-native'
 
 import {connect} from 'react-redux'
@@ -16,6 +17,9 @@ import {connect} from 'react-redux'
 import ViewContainer from '../containers/ViewContainer'
 
 const { width, height } = Dimensions.get('window')
+
+const title = require('../images/title.png')
+
 
 class TitleScreen extends Component {
   constructor(props) {
@@ -26,14 +30,18 @@ class TitleScreen extends Component {
     return (
       <ViewContainer>
         <View style={styles.container}>
-          <Text style={[styles.welcome, this.props.theme]}>
-            Pinch
-          </Text>
-          <Button
-            onPress = {() => this.props.setActiveScreen('PostScreen')}
-            title = 'Explore'
-            style = {styles.button}
-          />
+          <Image
+            source={title}
+            style={{justifyContent: 'center', flex: 1, overflow: 'hidden', width: null, height: null}}
+            resizeMode='stretch'>
+            <Text style={styles.welcome}>
+              Pinch
+            </Text>
+            <Button
+              onPress = {() => this.props.setActiveScreen('PostScreen')}
+              title = 'Explore'
+            />
+          </Image>
         </View>
       </ViewContainer>
     )
@@ -46,18 +54,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   welcome: {
-    fontSize: height/15,
+    fontSize: height/10,
     textAlign: 'center',
     margin: 10,
-    height: 70
-  },
-  button: {
-    height: 60,
-    backgroundColor: '#0000ff',
-    alignSelf : 'stretch',
-    justifyContent: 'center',
-    alignItems : 'center',
-    fontSize: 30
+    height: 70,
+    backgroundColor: 'rgba(0,0,0,0)',
+    fontWeight: 'bold',
+    color: 'rgba(0,0,0,1)',
+    fontFamily: 'sans-serif-light'
   }
 })
 
