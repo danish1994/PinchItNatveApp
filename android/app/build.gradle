@@ -90,7 +90,7 @@ android {
         applicationId "in.pinch"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 37
+        versionCode 38
         versionName "1.0.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"

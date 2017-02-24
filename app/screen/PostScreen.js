@@ -91,11 +91,13 @@ class PostScreen extends Component {
               onMoveShouldSetResponder = {evt => true}
               onResponderGrant = {this._onResponderGrant.bind(this)}
               onResponderRelease = {this._onResponderRelease.bind(this)}>
-            <Image
-              source={{uri: this.props.post.image}}
-              style={{justifyContent: 'center', flex: 1, overflow: 'hidden', width: null, height: null}}
-              resizeMode='stretch'>
-            </Image>
+            <ViewContainer>
+              <Image
+                source={{uri: this.props.post.image}}
+                style={{justifyContent: 'center', flex: 1, overflow: 'hidden', width: null, height: null}}
+                resizeMode='stretch'>
+              </Image>
+            </ViewContainer>
           </View>
         </View>
       )
