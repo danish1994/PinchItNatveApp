@@ -1,7 +1,11 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { AppRegistry } from 'react-native'
+
+import {
+    AppRegistry,
+    AsyncStorage
+} from 'react-native'
 
 import { Provider } from 'react-redux'
 import {
@@ -39,6 +43,23 @@ PushNotification.configure({
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
         console.log('NOTIFICATION:', notification)
+        let posts=[]
+        posts.push(notification)
+        try {
+            AsyncStorage.getItem('state').then((resp) => {
+                if (resp) {
+                    resp = JSON.parse(resp)
+                    resp.posts = posts.concat(resp.posts)
+                    console.log(resp.posts)
+                    saveState(resp)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
     },
 
     // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
