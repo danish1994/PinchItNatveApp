@@ -22,7 +22,6 @@ import { ActionCreators } from '../../actions'
 
 import AppNavigator from '../AppNavigator'
 
-
 const userImage = require('../../images/user.png')
 
 const { width, height } = Dimensions.get('window')
