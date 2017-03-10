@@ -90,7 +90,7 @@ class TutorialScreen extends Component {
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center'}}>
                 <Icon name="chevron-up" size={20} color="#000000" />
-                <Text style={{fontWeight: 'bold'}}>Swipe Up For MOre</Text>
+                <Text style={{fontWeight: 'bold'}}>Swipe Up For More</Text>
               </View>
           </View>
         </View>
