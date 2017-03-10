@@ -9,7 +9,6 @@ import {
 import { connect } from 'react-redux'
 
 import AboutScreen from '../screen/AboutScreen'
-import TitleScreen from '../screen/TitleScreen'
 import PostScreen from '../screen/PostScreen'
 import ThemeScreen from '../screen/ThemeScreen'
 import LoadScreen from '../screen/LoadScreen'
@@ -30,19 +29,17 @@ class AppNavigator extends Component {
 
     render() {
       let Scene = null;
-      if (this.props.activeScreen === 'TitleScreen'){ Scene = TitleScreen }
       if (this.props.activeScreen === 'PostScreen'){
-        if(this.props.posts.length == 0){
+        if(this.props.posts.length == 0){  
           ToastAndroid.show('Loading Posts. Please Wait.', ToastAndroid.SHORT)
           Api.get(`/post/`).then(resp => {
             this.props.setPosts({ posts: resp })
             this.props.setActiveScreen('PostScreen')
           }).catch((err) => {
-            console.log(err)
             ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
-            this.props.setActiveScreen('TitleScreen')
+            this.props.setActiveScreen('TutorialScreen')
           })
-          Scene = TitleScreen
+          Scene = TutorialScreen
         }else{
           Scene = PostScreen
         }

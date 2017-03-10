@@ -10,3 +10,6 @@ export const INITIALIZE_DATA = 'INITIALIZE_DATA'
 
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
+
+export const GET_PREV_TUT = 'GET_PREV_TUT'
+export const GET_NEXT_TUT = 'GET_NEXT_TUT'

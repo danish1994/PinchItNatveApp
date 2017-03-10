@@ -109,7 +109,7 @@ class PostScreen extends Component {
               onStartShouldSetResponder = {evt => true}
               onMoveShouldSetResponder = {evt => true}
               onResponderGrant = {this._onResponderGrant.bind(this)}
-              onResponderRelease = {this._onResponderRelease.bind(this)}>          
+              onResponderRelease = {this._onResponderRelease.bind(this)}>
             <ViewContainer>
               <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
                 <Image
@@ -132,9 +132,8 @@ class PostScreen extends Component {
             <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
           </TouchableOpacity>
         </View>
-      )  
+      )
     }
-    
   }
 
   _readMore(){

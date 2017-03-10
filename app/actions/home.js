@@ -15,3 +15,15 @@ export function setTheme(theme){
     theme: theme
   }
 }
+
+export function getNextTut(){
+  return {
+    type: types.GET_NEXT_TUT
+  }
+}
+
+export function getPrevTut(){
+  return {
+    type: types.GET_PREV_TUT
+  }
+}

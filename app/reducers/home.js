@@ -85,3 +85,30 @@ export const readMoreTheme = createReducer('rgba(220,220,220,0.8)',{
     }
   }
 })
+
+export const tutorialScreenData = createReducer([
+  {
+    icon: 'newspaper-o',
+    title: 'Get Daily News'
+  },
+  {
+    icon: 'book',
+    title: 'Education'
+  },
+  {
+    icon: 'suitcase',
+    title: 'Get Employment'
+  }
+],{
+
+})
+
+export const tutorialScreenDataIterator = createReducer(0,{
+  [types.GET_NEXT_TUT](state, action){
+    return (state + 1)
+  },
+  [types.GET_PREV_TUT](state, action){
+    console.log(state)
+    return (state - 1)
+  }
+})

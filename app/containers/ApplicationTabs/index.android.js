@@ -64,10 +64,6 @@ class ApplicationTabs extends Component {
           </TouchableOpacity>
           <View style={{flex: 5}}>
             <Button
-              onPress = {() => this._activeScreen('TitleScreen')}
-              title = 'Home'
-            />
-            <Button
               onPress = {() => this._activeScreen('PostScreen')}
               title = 'Posts'
             />
@@ -86,7 +82,7 @@ class ApplicationTabs extends Component {
       return(
         <DrawerLayoutAndroid
           drawerBackgroundColor= {this.props.drawerTheme}
-          drawerWidth={300}
+          drawerWidth={width}
           drawerPosition={ DrawerLayoutAndroid.positions.Left }
           renderNavigationView={() => _renderDrawer}
           ref={'drawer'}>
