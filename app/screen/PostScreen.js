@@ -82,57 +82,91 @@ class PostScreen extends Component {
   }
 
   render() {
-    if(this.props.post.category.category == 'Banner'){
-      return (
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <View
-              style={{flex: 1}}
-              onStartShouldSetResponder = {evt => true}
-              onMoveShouldSetResponder = {evt => true}
-              onResponderGrant = {this._onResponderGrant.bind(this)}
-              onResponderRelease = {this._onResponderRelease.bind(this)}>
-            <ViewContainer>
-              <Image
-                source={{uri: this.props.post.image}}
-                style={{justifyContent: 'center', flex: 1, overflow: 'hidden', width: null, height: null}}
-                resizeMode='stretch'>
-              </Image>
-            </ViewContainer>
-          </View>
-        </View>
-      )
-    }else{
-      return (
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <View
-              style={{flex: 1}}
-              onStartShouldSetResponder = {evt => true}
-              onMoveShouldSetResponder = {evt => true}
-              onResponderGrant = {this._onResponderGrant.bind(this)}
-              onResponderRelease = {this._onResponderRelease.bind(this)}>
-            <ViewContainer>
-              <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
+    try{
+      if(this.props.post.category.category == 'Banner'){
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View
+                style={{flex: 1}}
+                onStartShouldSetResponder = {evt => true}
+                onMoveShouldSetResponder = {evt => true}
+                onResponderGrant = {this._onResponderGrant.bind(this)}
+                onResponderRelease = {this._onResponderRelease.bind(this)}>
+              <ViewContainer>
                 <Image
-                  style={styles.image}
                   source={{uri: this.props.post.image}}
-                />
-              </View>
-              <View style = {{flex: 1, alignItems: 'stretch'}}>
-                  <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
-                  <Text style={[styles.post, this.props.theme]}>
-                    {this.props.post.post}
-                  </Text>
-                  <Text style={[styles.post, this.props.theme, styles.postedBy]}>
-                    - Pinch By: {this.props.post.writer.name}
-                  </Text>
-              </View>
-            </ViewContainer>
+                  style={{justifyContent: 'center', flex: 1, overflow: 'hidden', width: null, height: null}}
+                  resizeMode='stretch'>
+                </Image>
+              </ViewContainer>
+            </View>
           </View>
-          <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
-            <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
-          </TouchableOpacity>
-        </View>
-      )
+        )
+      }else{
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View
+                style={{flex: 1}}
+                onStartShouldSetResponder = {evt => true}
+                onMoveShouldSetResponder = {evt => true}
+                onResponderGrant = {this._onResponderGrant.bind(this)}
+                onResponderRelease = {this._onResponderRelease.bind(this)}>
+              <ViewContainer>
+                <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
+                  <Image
+                    style={styles.image}
+                    source={{uri: this.props.post.image}}
+                  />
+                </View>
+                <View style = {{flex: 1, alignItems: 'stretch'}}>
+                    <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
+                    <Text style={[styles.post, this.props.theme]}>
+                      {this.props.post.post}
+                    </Text>
+                    <Text style={[styles.post, this.props.theme, styles.postedBy]}>
+                      - Pinch By: {this.props.post.writer.name}
+                    </Text>
+                </View>
+              </ViewContainer>
+            </View>
+            <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
+              <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
+            </TouchableOpacity>
+          </View>
+        )
+      }
+    }catch(err){
+      return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View
+                style={{flex: 1}}
+                onStartShouldSetResponder = {evt => true}
+                onMoveShouldSetResponder = {evt => true}
+                onResponderGrant = {this._onResponderGrant.bind(this)}
+                onResponderRelease = {this._onResponderRelease.bind(this)}>
+              <ViewContainer>
+                <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
+                  <Image
+                    style={styles.image}
+                    source={{uri: this.props.post.image}}
+                  />
+                </View>
+                <View style = {{flex: 1, alignItems: 'stretch'}}>
+                    <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
+                    <Text style={[styles.post, this.props.theme]}>
+                      {this.props.post.post}
+                    </Text>
+                    <Text style={[styles.post, this.props.theme, styles.postedBy]}>
+                      - Pinch By: {this.props.post.writer.name}
+                    </Text>
+                </View>
+              </ViewContainer>
+            </View>
+            <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
+              <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
+            </TouchableOpacity>
+          </View>
+        )
     }
   }
 

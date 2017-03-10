@@ -50,7 +50,6 @@ PushNotification.configure({
                 if (resp) {
                     resp = JSON.parse(resp)
                     resp.posts = posts.concat(resp.posts)
-                    console.log(resp.posts)
                     saveState(resp)
                 }
             }).catch((err) => {
