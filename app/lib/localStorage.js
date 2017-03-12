@@ -11,10 +11,10 @@ export const loadState = (props) => {
 
                 //Splash Screen Delay
                 setTimeout(function() {
-                    if (resp.posts){
+                    if (resp.posts) {
                         props.setActiveScreen('TutorialScreen')
-                    }else{
-                      props.setActiveScreen('PostScreen')
+                    } else {
+                        props.setActiveScreen('PostScreen')
                     }
                     props.setPosts({ posts: resp.posts }, false)
                     props.setUser(resp.user, 'loaded')

@@ -18,11 +18,13 @@ import {
   Linking
 } from 'react-native'
 
-import Icon from 'react-native-vector-icons/FontAwesome'
-
 import {connect} from 'react-redux'
 
+import { Header, Title, Content, Left, Right, Body, Icon } from 'native-base'
+
 import ViewContainer from '../containers/ViewContainer'
+
+import ApplicationTabs from '../containers/ApplicationTabs'
 
 import Api from '../lib/api'
 
@@ -30,7 +32,6 @@ const { width, height } = Dimensions.get('window')
 
 
 let counter = 0
-
 
 /*
   Direction System
@@ -105,6 +106,21 @@ class PostScreen extends Component {
       }else{
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
+            <Header style={{backgroundColor: this.props.theme.backgroundColor}}>
+              <Left>
+                <TouchableOpacity onPress = {() => this._openDrawer() }>
+                  <Icon name='menu' style={this.props.theme} />
+                </TouchableOpacity>
+              </Left>
+              <Body>
+                  <Title style={this.props.theme}>My Feed</Title>
+              </Body>
+              <Right>
+                <TouchableOpacity onPress={ () => this._refresh() }>
+                  <Icon name='refresh' style={this.props.theme}/>
+                </TouchableOpacity>
+              </Right>
+            </Header>
             <View
                 style={{flex: 1}}
                 onStartShouldSetResponder = {evt => true}
@@ -129,45 +145,19 @@ class PostScreen extends Component {
                 </View>
               </ViewContainer>
             </View>
-            <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
+            <TouchableOpacity style={{flex: 0.1, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
               <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
             </TouchableOpacity>
           </View>
         )
       }
     }catch(err){
-      return (
-          <View style={{flex: 1, justifyContent: 'center'}}>
-            <View
-                style={{flex: 1}}
-                onStartShouldSetResponder = {evt => true}
-                onMoveShouldSetResponder = {evt => true}
-                onResponderGrant = {this._onResponderGrant.bind(this)}
-                onResponderRelease = {this._onResponderRelease.bind(this)}>
-              <ViewContainer>
-                <View style = {{flex: 0.8, justifyContent: 'center', alignItems: 'stretch'}}>
-                  <Image
-                    style={styles.image}
-                    source={{uri: this.props.post.image}}
-                  />
-                </View>
-                <View style = {{flex: 1, alignItems: 'stretch'}}>
-                    <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
-                    <Text style={[styles.post, this.props.theme]}>
-                      {this.props.post.post}
-                    </Text>
-                    <Text style={[styles.post, this.props.theme, styles.postedBy]}>
-                      - Pinch By: {this.props.post.writer.name}
-                    </Text>
-                </View>
-              </ViewContainer>
-            </View>
-            <TouchableOpacity style={{flex: 0.09, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
-              <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Read More</Text>
-            </TouchableOpacity>
-          </View>
-        )
+      console.log(err)
     }
+  }
+
+  _openDrawer(){
+
   }
 
   _readMore(){
@@ -270,7 +260,8 @@ function mapStateToProps(state){
       currentPost: state.currentPost,
       counter: 0,
       posts: state.posts,
-      readMoreTheme: state.readMoreTheme
+      readMoreTheme: state.readMoreTheme,
+      drawer: state.drawer
   }
 }
 

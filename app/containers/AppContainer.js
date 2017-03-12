@@ -17,7 +17,7 @@ class AppContainer extends Component {
 
     render() {
         return (
-            < ApplicationTabs {...this.props }
+            <ApplicationTabs {...this.props }
             />
         )
     }

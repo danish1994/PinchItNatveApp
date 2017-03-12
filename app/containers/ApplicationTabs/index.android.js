@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import {
   Alert,
   DrawerLayoutAndroid,
-  Button,
   View,
   Text,
   ToolbarAndroid,
@@ -12,7 +11,8 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
-  BackAndroid
+  BackAndroid,
+  Button
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -87,7 +87,8 @@ class ApplicationTabs extends Component {
           renderNavigationView={() => _renderDrawer}
           ref={'drawer'}>
           <AppNavigator
-            { ...this.props } />
+            { ...this.props }
+         />
         </DrawerLayoutAndroid>
       )
     }
