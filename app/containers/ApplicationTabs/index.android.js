@@ -7,6 +7,7 @@ import {
   View,
   Text,
   ToolbarAndroid,
+  ToastAndroid,
   StyleSheet,
   Dimensions,
   Image,
@@ -15,12 +16,16 @@ import {
   Button
 } from 'react-native'
 
+import { Header, Title, Content, Left, Right, Body, Icon } from 'native-base'
+
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ActionCreators } from '../../actions'
 
 import AppNavigator from '../AppNavigator'
+
+import Api from '../../lib/api'
 
 const userImage = require('../../images/user.png')
 
@@ -79,18 +84,94 @@ class ApplicationTabs extends Component {
         </View>
       )
 
-      return(
-        <DrawerLayoutAndroid
-          drawerBackgroundColor= {this.props.drawerTheme}
-          drawerWidth={width}
-          drawerPosition={ DrawerLayoutAndroid.positions.Left }
-          renderNavigationView={() => _renderDrawer}
-          ref={'drawer'}>
-          <AppNavigator
-            { ...this.props }
-         />
-        </DrawerLayoutAndroid>
-      )
+      if(this.props.activeScreen == 'TutorialScreen' || this.props.activeScreen == 'LoadScreen'){
+        return(
+          <DrawerLayoutAndroid
+            drawerBackgroundColor= {this.props.drawerTheme}
+            drawerWidth={width}
+            drawerPosition={ DrawerLayoutAndroid.positions.Left }
+            renderNavigationView={() => _renderDrawer}
+            ref={'drawer'}>
+            <AppNavigator
+              { ...this.props }
+           />
+          </DrawerLayoutAndroid>
+        )  
+      }else{
+        if(this.props.activeScreen == 'PostScreen'){
+          return(
+            <DrawerLayoutAndroid
+              drawerBackgroundColor= {this.props.drawerTheme}
+              drawerWidth={width}
+              drawerPosition={ DrawerLayoutAndroid.positions.Left }
+              renderNavigationView={() => _renderDrawer}
+              ref={'drawer'}>
+              <Header style={{backgroundColor: this.props.theme.backgroundColor}}>
+                <Left>
+                  <TouchableOpacity onPress = {() => this.refs['drawer'].openDrawer(0) }>
+                    <Icon name='menu' style={this.props.theme} />
+                  </TouchableOpacity>
+                </Left>
+                <Body>
+                    <Title style={this.props.theme}>My Feed</Title>
+                </Body>
+                <Right>
+                  <TouchableOpacity style={{marginRight: 15}} onPress={ () => this._refresh() }>
+                    <Icon name='share' style={this.props.theme}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginLeft: 15, marginRight: 10}} onPress={ () => this._refresh() }>
+                    <Icon name='refresh' style={this.props.theme}/>
+                  </TouchableOpacity>
+                </Right>
+              </Header>
+              <AppNavigator
+                { ...this.props }
+             />
+            </DrawerLayoutAndroid>
+          )  
+        }else{
+          return(
+            <DrawerLayoutAndroid
+              drawerBackgroundColor= {this.props.drawerTheme}
+              drawerWidth={width}
+              drawerPosition={ DrawerLayoutAndroid.positions.Left }
+              renderNavigationView={() => _renderDrawer}
+              ref={'drawer'}>
+              <Header style={{backgroundColor: this.props.theme.backgroundColor}}>
+                <Left>
+                  <TouchableOpacity onPress = {() => this.refs['drawer'].openDrawer(0) }>
+                    <Icon name='menu' style={this.props.theme} />
+                  </TouchableOpacity>
+                </Left>
+                <Body>
+                    <Title style={this.props.theme}>Pinch</Title>
+                </Body>
+                <Right />
+              </Header>
+              <AppNavigator
+                { ...this.props }
+             />
+            </DrawerLayoutAndroid>
+          )
+        }
+      }      
+    }
+
+     _refresh(){
+      ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.SHORT)
+      let currentPost = this.props.posts[0]
+      let url = `/post/`
+      if(currentPost){
+        url = `/post/?updatedAt=` + currentPost.updatedAt
+      }
+      Api.get(url).then(resp => {
+        if (resp.length == 0) {
+          ToastAndroid.show('You Are Already Upto Date.', ToastAndroid.SHORT)
+        }
+        this.props.setPosts({ posts: resp }, true)
+      }).catch((err) => {
+        ToastAndroid.show('Please check your connection.', ToastAndroid.SHORT)
+      })
     }
 
     _user(){
@@ -134,7 +215,7 @@ function mapStateToProps(state){
     drawerTheme: state.drawerTheme,
     theme: state.theme.attributes,
     loggedIn: state.user,
-    username: name
+    username: name,
   }
 }
 

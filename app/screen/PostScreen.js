@@ -20,8 +20,6 @@ import {
 
 import {connect} from 'react-redux'
 
-import { Header, Title, Content, Left, Right, Body, Icon } from 'native-base'
-
 import ViewContainer from '../containers/ViewContainer'
 
 import ApplicationTabs from '../containers/ApplicationTabs'
@@ -106,21 +104,6 @@ class PostScreen extends Component {
       }else{
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
-            <Header style={{backgroundColor: this.props.theme.backgroundColor}}>
-              <Left>
-                <TouchableOpacity onPress = {() => this._openDrawer() }>
-                  <Icon name='menu' style={this.props.theme} />
-                </TouchableOpacity>
-              </Left>
-              <Body>
-                  <Title style={this.props.theme}>My Feed</Title>
-              </Body>
-              <Right>
-                <TouchableOpacity onPress={ () => this._refresh() }>
-                  <Icon name='refresh' style={this.props.theme}/>
-                </TouchableOpacity>
-              </Right>
-            </Header>
             <View
                 style={{flex: 1}}
                 onStartShouldSetResponder = {evt => true}
@@ -154,10 +137,6 @@ class PostScreen extends Component {
     }catch(err){
       console.log(err)
     }
-  }
-
-  _openDrawer(){
-
   }
 
   _readMore(){
@@ -261,7 +240,6 @@ function mapStateToProps(state){
       counter: 0,
       posts: state.posts,
       readMoreTheme: state.readMoreTheme,
-      drawer: state.drawer
   }
 }
 

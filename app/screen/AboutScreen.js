@@ -27,7 +27,7 @@ class AboutScreen extends Component {
       <ViewContainer>
         <View style={styles.container}>
           <Text style={[styles.heading, this.props.theme]}>
-            About
+            About Us
           </Text>
           <Text style={[styles.text, this.props.theme]}>
            Pinch is an app that searches, squeezes and then delivers you what matters you the most. We make you read worthy, get worthier and share the worthiest. Read in short or with elaboration {'\n'} - Choice is all yours.
