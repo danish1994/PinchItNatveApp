@@ -116,10 +116,7 @@ class ApplicationTabs extends Component {
                     <Title style={this.props.theme}>My Feed</Title>
                 </Body>
                 <Right>
-                  <TouchableOpacity style={{marginRight: 15}} onPress={ () => this._refresh() }>
-                    <Icon name='share' style={this.props.theme}/>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{marginLeft: 15, marginRight: 10}} onPress={ () => this._refresh() }>
+                  <TouchableOpacity style={{marginLeft: 15}} onPress={ () => this._refresh() }>
                     <Icon name='refresh' style={this.props.theme}/>
                   </TouchableOpacity>
                 </Right>
