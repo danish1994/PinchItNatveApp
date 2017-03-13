@@ -84,7 +84,6 @@ class PostScreen extends Component {
 
   render() {
     try{
-      throw new Error('err')
       if(this.props.post.category.category == 'Banner'){
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
