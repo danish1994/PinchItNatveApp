@@ -18,6 +18,8 @@ import {
   Linking
 } from 'react-native'
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {connect} from 'react-redux'
 
 import ViewContainer from '../containers/ViewContainer'
@@ -82,6 +84,7 @@ class PostScreen extends Component {
 
   render() {
     try{
+      throw new Error('err')
       if(this.props.post.category.category == 'Banner'){
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
@@ -135,7 +138,27 @@ class PostScreen extends Component {
         )
       }
     }catch(err){
-      console.log(err)
+      return (
+        <ViewContainer>
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View
+                style={{flex: 1}}
+                onStartShouldSetResponder = {evt => true}
+                onMoveShouldSetResponder = {evt => true}
+                onResponderGrant = {this._onResponderGrant.bind(this)}
+                onResponderRelease = {this._onResponderRelease.bind(this)}>
+                <View style={{flex: 4, alignItems: 'center',justifyContent: 'center'}}>
+                  <Icon name='unlink' size={150} color={this.props.theme.color} />
+                  <Text style={{fontSize: height/30, fontWeight: 'bold', marginTop: 20, color: this.props.theme.color}}>Something Went Wrong.</Text>
+                </View>
+                <View style={{flex: 1, alignItems: 'center',justifyContent: 'center'}}>
+                  <Icon name="chevron-up" size={20} color={this.props.theme.color} />
+                  <Text style={{fontWeight: 'bold',color: this.props.theme.color}}>Swipe Up/Down to Continue.</Text>
+                </View>
+            </View>
+          </View>
+        </ViewContainer>
+      )
     }
   }
 
