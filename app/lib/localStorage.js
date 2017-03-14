@@ -1,7 +1,7 @@
 'use-strict'
 
 import { AsyncStorage } from 'react-native'
-// import Realm from 'realm'
+import Api from './api'
 
 export const loadState = (props) => {
     try {
@@ -14,7 +14,7 @@ export const loadState = (props) => {
                     if (resp.posts) {
                         props.setPosts({ posts: resp.posts }, false)
 
-                        //Refreshing Posts
+                        //Refreshing Posts Start
                         try {
                             let currentPost = resp.posts[0]
                             let url = `/post/`
@@ -29,7 +29,7 @@ export const loadState = (props) => {
                         } catch (err) {
                             console.log(err)
                         }
-                        //Refreshing Posts
+                        //Refreshing Posts End
 
 
                         props.setActiveScreen('PostScreen')

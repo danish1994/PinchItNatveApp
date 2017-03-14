@@ -13,7 +13,8 @@ import {
   Image,
   TouchableOpacity,
   BackAndroid,
-  Button
+  Button,
+  Share
 } from 'react-native'
 
 import { Header, Title, Content, Left, Right, Body, Icon } from 'native-base'
@@ -116,7 +117,10 @@ class ApplicationTabs extends Component {
                     <Title style={this.props.theme}>My Feed</Title>
                 </Body>
                 <Right>
-                  <TouchableOpacity style={{marginLeft: 15}} onPress={ () => this._refresh() }>
+                  <TouchableOpacity style={{marginRight: 15}} onPress={ () => this._share() }>
+                    <Icon name='share' style={this.props.theme}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{marginLeft: 10, marginRight: 5}} onPress={ () => this._refresh() }>
                     <Icon name='refresh' style={this.props.theme}/>
                   </TouchableOpacity>
                 </Right>
@@ -154,7 +158,25 @@ class ApplicationTabs extends Component {
       }      
     }
 
-     _refresh(){
+    _share(){
+      let currentPost = this.props.posts[0]
+      Share.share({
+        message: currentPost.title + '\n\n' + currentPost.post + '\n\n\nFor More Updates Download - https://play.google.com/store/apps/details?id=in.pinch',
+        url: 'https://play.google.com/store/apps/details?id=in.pinch',
+        title: currentPost.title
+      }, {
+        dialogTitle: 'Share Post With Your Friends.',
+        tintColor: 'black'
+      })
+      .then(() => {
+        console.log('post shared')
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    } 
+
+    _refresh(){
       ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.SHORT)
       let currentPost = this.props.posts[0]
       let url = `/post/`
