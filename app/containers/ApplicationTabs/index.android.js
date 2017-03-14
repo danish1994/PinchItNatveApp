@@ -159,7 +159,7 @@ class ApplicationTabs extends Component {
     }
 
     _share(){
-      let currentPost = this.props.posts[0]
+      let currentPost = this.props.posts[this.props.currentPost]
       Share.share({
         message: currentPost.title + '\n\n' + currentPost.post + '\n\n\nFor More Updates Download - https://play.google.com/store/apps/details?id=in.pinch',
         url: 'https://play.google.com/store/apps/details?id=in.pinch',
@@ -235,6 +235,7 @@ function mapStateToProps(state){
     theme: state.theme.attributes,
     loggedIn: state.user,
     username: name,
+    currentPost: state.currentPost,
   }
 }
 
