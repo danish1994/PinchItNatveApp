@@ -12,11 +12,32 @@ export const loadState = (props) => {
                 //Splash Screen Delay
                 setTimeout(function() {
                     if (resp.posts) {
-                        props.setActiveScreen('TutorialScreen')
-                    } else {
+                        props.setPosts({ posts: resp.posts }, false)
+
+                        //Refreshing Posts
+                        try {
+                            let currentPost = resp.posts[0]
+                            let url = `/post/`
+                            if (currentPost) {
+                                url = `/post/?updatedAt=` + currentPost.updatedAt
+                            }
+                            Api.get(url).then(resp => {
+                                props.setPosts({ posts: resp }, true)
+                            }).catch((err) => {
+                                console.log(err)
+                            })
+                        } catch (err) {
+                            console.log(err)
+                        }
+                        //Refreshing Posts
+
+
                         props.setActiveScreen('PostScreen')
+
+                    } else {
+                        props.setActiveScreen('TutorialScreen')
                     }
-                    props.setPosts({ posts: resp.posts }, false)
+
                     props.setUser(resp.user, 'loaded')
                     props.setTheme(resp.theme)
                 }, 2000)
