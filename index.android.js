@@ -32,18 +32,22 @@ var PushNotification = require('react-native-push-notification');
 PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function(token) {
-        console.log(token)
-        Api.post(`/deviceid/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(token.token) + "&" + encodeURIComponent('source') + '=' + encodeURIComponent('android')).then(resp => {
-            console.log(resp)
-        }).catch((err) => {
+        try {
+            console.log(token)
+            Api.post(`/deviceid/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(token.token) + "&" + encodeURIComponent('source') + '=' + encodeURIComponent('android')).then(resp => {
+                console.log(resp)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } catch (err) {
             console.log(err)
-        })
+        }
     },
 
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
         console.log('NOTIFICATION:', notification)
-        let posts=[]
+        let posts = []
         posts.push(notification)
         try {
             AsyncStorage.getItem('state').then((resp) => {

@@ -12,34 +12,31 @@ export const loadState = (props) => {
                 //Splash Screen Delay
                 setTimeout(function() {
                     if (resp.posts) {
-                        props.setPosts({ posts: resp.posts }, false)
-
-                        //Refreshing Posts Start
                         try {
+                            console.log('Refreshing Posts')
                             let currentPost = resp.posts[0]
                             let url = `/post/`
                             if (currentPost) {
                                 url = `/post/?updatedAt=` + currentPost.updatedAt
                             }
-                            Api.get(url).then(resp => {
-                                props.setPosts({ posts: resp }, true)
+                            Api.get(url).then(res => {
+                                resp.posts = res.concat(resp.posts)
+                                props.setPosts({ posts: resp.posts }, false)
+                                props.setTheme(resp.theme)
                             }).catch((err) => {
                                 console.log(err)
+                                props.setPosts({ posts: resp.posts }, false)
+                                props.setTheme(resp.theme)
                             })
                         } catch (err) {
                             console.log(err)
+                            props.setPosts({ posts: resp.posts }, false)
+                            props.setTheme(resp.theme)
                         }
-                        //Refreshing Posts End
-
-
-                        props.setActiveScreen('PostScreen')
-
                     } else {
                         props.setActiveScreen('TutorialScreen')
                     }
-
-                    props.setUser(resp.user, 'loaded')
-                    props.setTheme(resp.theme)
+                    // props.setUser(resp.user, 'loaded')
                 }, 2000)
             } else {
                 //Splash Screen Delay
