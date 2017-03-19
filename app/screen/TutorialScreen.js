@@ -85,12 +85,12 @@ class TutorialScreen extends Component {
               onResponderGrant = {this._onResponderGrant.bind(this)}
               onResponderRelease = {this._onResponderRelease.bind(this)}>
               <View style={{flex: 4, alignItems: 'center',justifyContent: 'center'}}>
-                <Icon name={this.props.tutorialScreenData.icon} size={150} color="#4F8EF7" />
-                <Text style={{fontSize: height/20, fontWeight: 'bold', marginTop: 20}}>{this.props.tutorialScreenData.title}</Text>
+                <Icon name={this.props.tutorialScreenData.icon} size={150} color={this.props.theme.color} />
+                <Text style={{fontSize: height/20, fontWeight: 'bold', marginTop: 20, color: this.props.theme.color}}>{this.props.tutorialScreenData.title}</Text>
               </View>
               <View style={{flex: 1, alignItems: 'center',justifyContent: 'center'}}>
-                <Icon name="chevron-up" size={20} color="#000000" />
-                <Text style={{fontWeight: 'bold'}}>Swipe Up For More</Text>
+                <Icon name="chevron-up" size={20} color={this.props.theme.color} />
+                <Text style={{fontWeight: 'bold', color: this.props.theme.color}}>Swipe Up For More</Text>
               </View>
           </View>
         </View>
@@ -134,6 +134,7 @@ function mapStateToProps(state){
     tutorialScreenData: state.tutorialScreenData[state.tutorialScreenDataIterator],
     tutorialScreenDataLength: state.tutorialScreenData.length,
     tutorialScreenDataIterator: state.tutorialScreenDataIterator,
+    theme: state.theme.attributes,
   }
 }
 

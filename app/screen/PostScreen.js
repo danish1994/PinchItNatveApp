@@ -120,7 +120,7 @@ class PostScreen extends Component {
                   />
                 </View>
                 <View style = {{flex: 1, alignItems: 'stretch'}}>
-                    <Text style={[styles.heading, this.props.theme]}>{this.props.post.title}</Text>
+                    <Text style={[styles.heading, this.props.theme, { borderBottomColor: this.props.theme.color}]}>{this.props.post.title}</Text>
                     <Text style={[styles.post, this.props.theme]}>
                       {this.props.post.post}
                     </Text>
@@ -233,15 +233,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
     marginBottom: 5,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    borderWidth:1,
+    borderColor: 'rgba(0,0,0,0)'
   },
   post: {
     textAlign: 'left',
-    fontSize: height/37,
+    fontSize: height/39,
     alignSelf: 'stretch',
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 10,
+    marginTop: 10
   },
   image: {
     resizeMode: 'stretch',
