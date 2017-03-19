@@ -13,7 +13,6 @@ export const loadState = (props) => {
                 setTimeout(function() {
                     if (resp.posts) {
                         try {
-                            console.log('Refreshing Posts')
                             let currentPost = resp.posts[0]
                             let url = `/post/`
                             if (currentPost) {
@@ -22,20 +21,18 @@ export const loadState = (props) => {
                             Api.get(url).then(res => {
                                 resp.posts = res.concat(resp.posts)
                                 props.setPosts({ posts: resp.posts }, false)
-                                props.setTheme(resp.theme)
                             }).catch((err) => {
                                 console.log(err)
                                 props.setPosts({ posts: resp.posts }, false)
-                                props.setTheme(resp.theme)
                             })
                         } catch (err) {
                             console.log(err)
                             props.setPosts({ posts: resp.posts }, false)
-                            props.setTheme(resp.theme)
                         }
                     } else {
                         props.setActiveScreen('TutorialScreen')
                     }
+                    props.setTheme(resp.theme)
                     // props.setUser(resp.user, 'loaded')
                 }, 2000)
             } else {
