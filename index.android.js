@@ -30,10 +30,16 @@ import Api from './app/lib/api'
 var PushNotification = require('react-native-push-notification');
 
 PushNotification.configure({
-    // (optional) Called when Token is generated (iOS and Android)
     onRegister: function(token) {
         try {
             console.log(token)
+
+            // Saving Token to Local Storage
+            AsyncStorage.setItem('token', token.token).then(() => {
+                console.log('State Saved')
+            })
+
+            // Sending Token to Server
             Api.post(`/deviceid/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(token.token) + "&" + encodeURIComponent('source') + '=' + encodeURIComponent('android')).then(resp => {
                 console.log(resp)
             }).catch((err) => {
@@ -46,23 +52,22 @@ PushNotification.configure({
 
     // (required) Called when a remote or local notification is opened or received
     onNotification: function(notification) {
-        console.log('NOTIFICATION:', notification)
-        let posts = []
-        posts.push(notification)
-        try {
-            AsyncStorage.getItem('state').then((resp) => {
-                if (resp) {
-                    resp = JSON.parse(resp)
-                    resp.posts = posts.concat(resp.posts)
-                    saveState(resp)
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-
+        // console.log('NOTIFICATION:', notification)
+        // let posts = []
+        // posts.push(notification)
+        // try {
+        //     AsyncStorage.getItem('state').then((resp) => {
+        //         if (resp) {
+        //             resp = JSON.parse(resp)
+        //             resp.posts = posts.concat(resp.posts)
+        //             saveState(resp)
+        //         }
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     })
+        // } catch (err) {
+        //     console.log(err)
+        // }
     },
 
     // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)

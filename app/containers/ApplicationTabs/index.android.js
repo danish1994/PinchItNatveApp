@@ -78,6 +78,10 @@ class ApplicationTabs extends Component {
               title = 'About Us'
             />
             <Button
+              onPress = {() => this._activeScreen('CategoryScreen')}
+              title = 'Category'
+            />
+            <Button
               onPress = {() => this._activeScreen('ThemeScreen')}
               title = 'Modes'
             />
