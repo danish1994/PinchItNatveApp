@@ -67,10 +67,10 @@ class CategoryScreen extends Component {
 	}
 
 	_submit(){
+		let _self = this
+		ToastAndroid.show('Submiting Your Request. Please Wait.', ToastAndroid.SHORT)        
 		AsyncStorage.getItem('token').then((resp) => {
             if (resp) {
-                console.log(resp)
-                console.log(this.state)
                 let arr = []
                 if(this.state.news){
                 	arr.push(2)
@@ -78,11 +78,13 @@ class CategoryScreen extends Component {
                 if(this.state.education){
                 	arr.push(1)
                 }
-
                 Api.post(`/deviceCategoryRelation/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(resp) + "&" + encodeURIComponent('category') + '=' + encodeURIComponent(arr.join(','))).then(resp => {
 	                console.log(resp)
+	                ToastAndroid.show('Categories Updated.', ToastAndroid.SHORT)
+	                _self.props.setCategories(arr)
 	            }).catch((err) => {
 	                console.log(err)
+	                ToastAndroid.show('Categories Not Updated. Please Turn On Your Connection And Try Again.', ToastAndroid.SHORT)
 	            })
 
             } else {

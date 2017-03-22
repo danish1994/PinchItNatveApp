@@ -28,3 +28,9 @@ export const currentPost = createReducer(0, {
         return 0
     }
 })
+
+export const selectedCategories = createReducer([], {
+    [types.CATEGORIES](state, action) {
+        return action.categories
+    }
+})

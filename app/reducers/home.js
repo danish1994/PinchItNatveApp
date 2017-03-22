@@ -19,6 +19,9 @@ export const activeScreen = createReducer('LoadScreen', {
     },
     [types.LOAD_POST](state, action) {
         return 'PostScreen'
+    },
+    [types.CATEGORIES](state, action) {
+        return 'PostScreen'
     }
 })
 
