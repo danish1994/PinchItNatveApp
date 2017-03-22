@@ -13,10 +13,17 @@ export const loadState = (props) => {
                 setTimeout(function() {
                     if (resp.posts) {
                         try {
+
+                            let category = ''
+
+                            if (resp.categories) {
+                                category = resp.categories.join(',')
+                            }
+
                             let currentPost = resp.posts[0]
-                            let url = `/post/`
+                            let url = `/post/?` + `category=` + category
                             if (currentPost) {
-                                url = `/post/?updatedAt=` + currentPost.updatedAt
+                                url = `/post/?` + `updatedAt=` + currentPost.updatedAt + `&` + `category=` + category
                             }
                             Api.get(url).then(res => {
                                 resp.posts = res.concat(resp.posts)
@@ -32,7 +39,17 @@ export const loadState = (props) => {
                     } else {
                         props.setActiveScreen('TutorialScreen')
                     }
-                    props.setTheme(resp.theme)
+
+                    if (resp.theme) {
+                        props.setTheme(resp.theme)
+                    }
+
+                    if (resp.categories) {
+                        if (resp.categories.length != 0) {
+                            props.setCategories(resp.categories)
+                        }
+                    }
+
                     // props.setUser(resp.user, 'loaded')
                 }, 2000)
             } else {
@@ -54,7 +71,8 @@ export const saveState = (state) => {
         const serializedState = JSON.stringify({
             theme: state.theme.key,
             posts: state.posts,
-            user: state.user
+            user: state.user,
+            categories: state.selectedCategories
         })
 
         AsyncStorage.setItem('state', serializedState).then(() => {

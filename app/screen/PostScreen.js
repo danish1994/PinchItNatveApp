@@ -188,11 +188,19 @@ class PostScreen extends Component {
 
   _refresh(){
     ToastAndroid.show('Loading New Posts. Please Wait.', ToastAndroid.SHORT)
-    let currentPost = this.props.posts[0]
-    let url = `/post/`
-    if(currentPost){
-      url = `/post/?updatedAt=` + currentPost.updatedAt
+
+    let category = ''
+
+    if (this.props.categories) {
+        category = this.props.categories.join(',')
     }
+
+    let currentPost = this.props.posts[0]
+    let url = `/post/?` + `category=` + category
+    if (currentPost) {
+        url = `/post/?` + `updatedAt=` + currentPost.updatedAt + `&` + `category=` + category
+    }
+
     Api.get(url).then(resp => {
       if (resp.length == 0) {
         ToastAndroid.show('You Are Already Upto Date.', ToastAndroid.SHORT)
@@ -265,6 +273,7 @@ function mapStateToProps(state){
       counter: 0,
       posts: state.posts,
       readMoreTheme: state.readMoreTheme,
+      categories: state.selectedCategories
   }
 }
 

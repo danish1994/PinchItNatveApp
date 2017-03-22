@@ -29,11 +29,21 @@ const { width, height } = Dimensions.get('window')
 class CategoryScreen extends Component {
 	constructor(props) {
 		super(props)
-		this.state={
+		let state = {
 			news: false,
 			education: false,
 			employement: false
 		}
+
+		if(props.categories.includes(2)){
+			state.news = true
+		}
+
+		if(props.categories.includes(1)){
+			state.education = true
+		}
+
+		this.state=state
 	}
 
 	render() {
@@ -60,7 +70,7 @@ class CategoryScreen extends Component {
 					</View>
 					<TouchableOpacity style={{flex: 0.1, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._submit() }>
 						<Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Submit</Text>
-						</TouchableOpacity>
+					</TouchableOpacity>
 				</View>
 			</ViewContainer>
 		)
@@ -71,6 +81,7 @@ class CategoryScreen extends Component {
 		ToastAndroid.show('Submiting Your Request. Please Wait.', ToastAndroid.SHORT)        
 		AsyncStorage.getItem('token').then((resp) => {
             if (resp) {
+            	console.log(resp)
                 let arr = []
                 if(this.state.news){
                 	arr.push(2)
@@ -78,14 +89,18 @@ class CategoryScreen extends Component {
                 if(this.state.education){
                 	arr.push(1)
                 }
-                Api.post(`/deviceCategoryRelation/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(resp) + "&" + encodeURIComponent('category') + '=' + encodeURIComponent(arr.join(','))).then(resp => {
-	                console.log(resp)
-	                ToastAndroid.show('Categories Updated.', ToastAndroid.SHORT)
-	                _self.props.setCategories(arr)
-	            }).catch((err) => {
+                try{
+	                Api.post(`/deviceCategoryRelation/`, encodeURIComponent('deviceid') + '=' + encodeURIComponent(resp) + "&" + encodeURIComponent('category') + '=' + encodeURIComponent(arr.join(','))).then(resp => {
+		                ToastAndroid.show('Categories Updated.', ToastAndroid.SHORT)
+		                _self.props.setCategories(arr)
+		            }).catch((err) => {
+		                console.log(err)
+		                ToastAndroid.show('Categories Not Updated. Please Turn On Your Connection And Try Again.', ToastAndroid.SHORT)
+		            })
+		        }catch(err){
 	                console.log(err)
 	                ToastAndroid.show('Categories Not Updated. Please Turn On Your Connection And Try Again.', ToastAndroid.SHORT)
-	            })
+		        }
 
             } else {
                 ToastAndroid.show('Token Not Found.', ToastAndroid.SHORT)
@@ -127,7 +142,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state){
 	return {
 		theme: state.theme.attributes,
-		readMoreTheme: state.readMoreTheme
+		readMoreTheme: state.readMoreTheme,
+		categories: state.selectedCategories
 	}
 }
 
