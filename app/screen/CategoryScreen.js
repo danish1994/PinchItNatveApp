@@ -88,7 +88,7 @@ class CategoryScreen extends Component {
 	            })
 
             } else {
-                
+                ToastAndroid.show('Token Not Found.', ToastAndroid.SHORT)
             }
         }).catch((err) => {
             console.log(err)
