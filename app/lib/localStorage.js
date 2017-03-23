@@ -3,6 +3,22 @@
 import { AsyncStorage } from 'react-native'
 import Api from './api'
 
+const setState = function(props, resp) {
+    if (resp.posts) {
+        props.setPosts({ posts: resp.posts }, false)
+    }
+
+    if (resp.theme) {
+        props.setTheme(resp.theme)
+    }
+
+    if (resp.categories) {
+        if (resp.categories.length != 0) {
+            props.setCategories(resp.categories)
+        }
+    }
+}
+
 export const loadState = (props) => {
     try {
         AsyncStorage.getItem('state').then((resp) => {
@@ -27,27 +43,18 @@ export const loadState = (props) => {
                             }
                             Api.get(url).then(res => {
                                 resp.posts = res.concat(resp.posts)
-                                props.setPosts({ posts: resp.posts }, false)
+                                setState(props, resp)
                             }).catch((err) => {
                                 console.log(err)
-                                props.setPosts({ posts: resp.posts }, false)
+                                setState(props, resp)
                             })
                         } catch (err) {
                             console.log(err)
-                            props.setPosts({ posts: resp.posts }, false)
+                            setState(props, resp)
                         }
                     } else {
+                        setState(props, resp)
                         props.setActiveScreen('TutorialScreen')
-                    }
-
-                    if (resp.theme) {
-                        props.setTheme(resp.theme)
-                    }
-
-                    if (resp.categories) {
-                        if (resp.categories.length != 0) {
-                            props.setCategories(resp.categories)
-                        }
                     }
 
                     // props.setUser(resp.user, 'loaded')
