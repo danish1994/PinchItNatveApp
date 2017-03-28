@@ -84,6 +84,23 @@ class PostScreen extends Component {
 
   render() {
     try{
+      let posted = ''
+      let currentDate = new Date().setHours(0,0,0,0)
+      let postDate = new Date(this.props.posts[this.props.currentPost].updatedAt).setHours(0,0,0,0)
+      
+      let diff = currentDate - postDate
+      
+      switch(diff/(24*3600*1000)) {
+        case 0:
+          posted = 'Today'
+          break
+        case 1:
+          posted = 'Yesterday'
+          break
+        default:
+          posted = diff/(24*3600*1000) + ' days ago'
+      }
+
       if(this.props.post.category.category == 'Banner'){
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
@@ -125,7 +142,7 @@ class PostScreen extends Component {
                       {this.props.post.post}
                     </Text>
                     <Text style={[styles.post, this.props.theme, styles.postedBy]}>
-                      - Pinch By: {this.props.post.writer.name}
+                      - Pinch By: {this.props.post.writer.name} / {posted}
                     </Text>
                 </View>
               </ViewContainer>
@@ -251,8 +268,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginLeft: 10,
     marginRight: 10,
-    marginBottom: 10,
-    marginTop: 10
+    marginBottom: 2,
+    marginTop: 2
   },
   image: {
     resizeMode: 'stretch',
@@ -273,7 +290,7 @@ function mapStateToProps(state){
       counter: 0,
       posts: state.posts,
       readMoreTheme: state.readMoreTheme,
-      categories: state.selectedCategories
+      categories: state.selectedCategories,
   }
 }
 
