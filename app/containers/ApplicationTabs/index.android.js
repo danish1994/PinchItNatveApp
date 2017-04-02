@@ -87,17 +87,20 @@ class ApplicationTabs extends Component {
             permissions={["email","user_friends"]}
             loginBehavior={FBLoginManager.LoginBehaviors.Native}
             onLogin={function(data){
-              console.log("Logged in!");
+              alert("Logged in!");
               console.log(data);
+              ToastAndroid.show('Welcome to Pinch.', ToastAndroid.SHORT)
               // _this.setState({ user : data.credentials });
             }}
             onLogout={function(){
               console.log("Logged out.");
+              ToastAndroid.show('You are Succesfully Logged Out.', ToastAndroid.SHORT)
               // _this.setState({ user : null });
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
               console.log(data);
+              ToastAndroid.show('Welcome Back to Pinch.', ToastAndroid.SHORT)
               // _this.setState({ user : data.credentials });
             }}
             onLoginNotFound={function(){
