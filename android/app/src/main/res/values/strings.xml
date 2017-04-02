@@ -1,4 +1,5 @@
 <resources>
-
     <string name="app_name">Pinch</string>
+    <string name="fb_app_id">749812778507570</string>
+    <string name="fb_login_protocol_scheme">d248e1f67f1ae7108f275da14aeb05ad</string>
 </resources>

@@ -19,6 +19,8 @@ import {
 
 import { Header, Title, Content, Left, Right, Body, Icon } from 'native-base'
 
+import {FBLogin, FBLoginManager} from 'react-native-facebook-login';
+
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -50,6 +52,8 @@ class ApplicationTabs extends Component {
           )
           return true
         })
+
+        this.fbLogin
     }
 
     render() {
@@ -68,6 +72,22 @@ class ApplicationTabs extends Component {
               </View>
             </View>
           </TouchableOpacity>
+          <View style={{flex: 2}}>
+          <FBLogin
+            buttonView={<Button
+              title = 'Login'
+            />}
+            ref={(fbLogin) => { this.fbLogin = fbLogin }}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+            permissions={["email","user_friends"]}
+            onLogin={function(e){console.log(e)}}
+            onLoginFound={function(e){console.log(e)}}
+            onLoginNotFound={function(e){console.log(e)}}
+            onLogout={function(e){console.log(e)}}
+            onCancel={function(e){console.log(e)}}
+            onPermissionsMissing={function(e){console.log(e)}}
+          />
+          </View>
           <View style={{flex: 5}}>
             <Button
               onPress = {() => this._activeScreen('PostScreen')}
