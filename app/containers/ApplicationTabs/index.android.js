@@ -54,6 +54,15 @@ class ApplicationTabs extends Component {
         })
 
         this.fbLogin
+
+        FBLoginManager.LoginBehaviors = {
+          SystemAccount: "DEVICE_AUTH",
+          NativeOnly: "NATIVE_ONLY",
+          Native: "NATIVE_WITH_FALLBACK", // android default
+          Web: "WEB_ONLY",
+          Katana: "KATANA_ONLY",
+          WebView: "WEB_VIEW_ONLY"
+        }
     }
 
     render() {
@@ -73,19 +82,39 @@ class ApplicationTabs extends Component {
             </View>
           </TouchableOpacity>
           <View style={{flex: 2}}>
-          <FBLogin
-            buttonView={<Button
-              title = 'Login'
-            />}
+          <FBLogin style={{ marginBottom: 10, }}
             ref={(fbLogin) => { this.fbLogin = fbLogin }}
-            loginBehavior={FBLoginManager.LoginBehaviors.Native}
             permissions={["email","user_friends"]}
-            onLogin={function(e){console.log(e)}}
-            onLoginFound={function(e){console.log(e)}}
-            onLoginNotFound={function(e){console.log(e)}}
-            onLogout={function(e){console.log(e)}}
-            onCancel={function(e){console.log(e)}}
-            onPermissionsMissing={function(e){console.log(e)}}
+            loginBehavior={FBLoginManager.LoginBehaviors.Native}
+            onLogin={function(data){
+              console.log("Logged in!");
+              console.log(data);
+              // _this.setState({ user : data.credentials });
+            }}
+            onLogout={function(){
+              console.log("Logged out.");
+              // _this.setState({ user : null });
+            }}
+            onLoginFound={function(data){
+              console.log("Existing login found.");
+              console.log(data);
+              // _this.setState({ user : data.credentials });
+            }}
+            onLoginNotFound={function(){
+              console.log("No user logged in.");
+              // _this.setState({ user : null });
+            }}
+            onError={function(data){
+              console.log("ERROR");
+              console.log(data);
+            }}
+            onCancel={function(){
+              console.log("User cancelled.");
+            }}
+            onPermissionsMissing={function(data){
+              console.log("Check permissions!");
+              console.log(data);
+            }}
           />
           </View>
           <View style={{flex: 5}}>
