@@ -15,7 +15,8 @@ import {
   Button,
   ToastAndroid,
   TouchableOpacity,
-  Linking
+  Linking,
+  WebView 
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -80,6 +81,10 @@ class PostScreen extends Component {
   constructor(props){
     super(props)
     this.motionController = new motionController()
+    let state = {
+      readMore: false
+    }
+    this.state = state
   }
 
   render() {
@@ -101,7 +106,22 @@ class PostScreen extends Component {
           posted = diff/(24*3600*1000) + ' days ago'
       }
 
-      if(this.props.post.category.category == 'Banner'){
+      if(this.state.readMore){
+        return (
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <ViewContainer>
+              <WebView
+                source={{uri: this.props.post.link || ('https://www.google.co.in/search?q='+this.props.post.title)}}
+                style={{flex: 1}}
+                startInLoadingState={true}
+              />
+            </ViewContainer>
+            <TouchableOpacity style={{flex: 0.1, backgroundColor: this.props.readMoreTheme}} onPress={ () => this._readMore() }>
+              <Text style = {[{flex: 1, textAlign: 'center', margin: 12, fontWeight: 'bold', fontSize: height/35}, this.props.theme, {backgroundColor: 'rgba(0,0,0,0)'}]}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        )
+      } else if(this.props.post.category.category == 'Banner'){
         return (
           <View style={{flex: 1, justifyContent: 'center'}}>
             <View
@@ -179,7 +199,9 @@ class PostScreen extends Component {
   }
 
   _readMore(){
-    Linking.openURL(this.props.post.link || ('https://www.google.co.in/search?q='+this.props.post.title)).catch(err => console.error('An error occurred', err));
+    this.setState({
+      readMore: !this.state.readMore
+    })
   }
 
   _onResponderGrant(evt){
