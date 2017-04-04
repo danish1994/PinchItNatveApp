@@ -1,6 +1,6 @@
 'use-strict'
 
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, NetInfo } from 'react-native'
 import Api from './api'
 
 const setState = function(props, resp) {
@@ -30,24 +30,32 @@ export const loadState = (props) => {
                     if (resp.posts) {
                         try {
 
-                            let category = ''
+                            NetInfo.isConnected.fetch().then(isConnected => {
+                                if (isConnected) {
+                                    let category = ''
 
-                            if (resp.categories) {
-                                category = resp.categories.join(',')
-                            }
+                                    if (resp.categories) {
+                                        category = resp.categories.join(',')
+                                    }
 
-                            let currentPost = resp.posts[0]
-                            let url = `/post/?` + `category=` + category
-                            if (currentPost) {
-                                url = `/post/?` + `updatedAt=` + currentPost.updatedAt + `&` + `category=` + category
-                            }
-                            Api.get(url).then(res => {
-                                resp.posts = res.concat(resp.posts)
-                                setState(props, resp)
-                            }).catch((err) => {
-                                console.log(err)
-                                setState(props, resp)
-                            })
+                                    let currentPost = resp.posts[0]
+                                    let url = `/post/?` + `category=` + category
+                                    if (currentPost) {
+                                        url = `/post/?` + `updatedAt=` + currentPost.updatedAt + `&` + `category=` + category
+                                    }
+                                    Api.get(url).then(res => {
+                                        resp.posts = res.concat(resp.posts)
+                                        setState(props, resp)
+                                    }).catch((err) => {
+                                        console.log(err)
+                                        setState(props, resp)
+                                    })
+                                } else {
+                                    setState(props, resp)
+                                }
+                            });
+
+
                         } catch (err) {
                             console.log(err)
                             setState(props, resp)
