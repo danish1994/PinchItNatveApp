@@ -16,7 +16,8 @@ import {
   ToastAndroid,
   TouchableOpacity,
   Linking,
-  WebView 
+  WebView,
+  NetInfo
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -199,8 +200,15 @@ class PostScreen extends Component {
   }
 
   _readMore(){
-    this.setState({
-      readMore: !this.state.readMore
+    let _self = this
+    NetInfo.isConnected.fetch().then(isConnected => {
+      if(isConnected){
+        _self.setState({
+          readMore: !_self.state.readMore
+        })
+      }else{
+        ToastAndroid.show('Please Connect to Internet to Read More.', ToastAndroid.SHORT)
+      }
     })
   }
 
