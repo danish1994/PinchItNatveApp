@@ -112,7 +112,7 @@ class PostScreen extends Component {
           <View style={{flex: 1, justifyContent: 'center'}}>
             <ViewContainer>
               <WebView
-                source={{uri: this.props.post.link || ('https://www.google.co.in/search?q='+this.props.post.title)}}
+                source={{uri: this.props.post.link || 'http://followus.com/pinch'}}
                 style={{flex: 1}}
                 startInLoadingState={true}
               />
